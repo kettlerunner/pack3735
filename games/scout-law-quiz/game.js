@@ -1,13 +1,31 @@
-const scoutLaw = [
-  "Trustworthy","Loyal","Helpful","Friendly","Courteous","Kind",
-  "Obedient","Cheerful","Thrifty","Brave","Clean","Reverent"
-];
+// Twelve points of the Scout Law and their meanings
+const scoutLawDetails = {
+  Trustworthy: "A Scout tells the truth and can be relied upon.",
+  Loyal: "A Scout is faithful to their family, friends, leaders, and country.",
+  Helpful: "A Scout is willing to assist others.",
+  Friendly: "A Scout is a friend to all.",
+  Courteous: "A Scout is polite and considerate.",
+  Kind: "A Scout is gentle and considerate of others.",
+  Obedient: "A Scout follows rules and laws.",
+  Cheerful: "A Scout is optimistic and positive.",
+  Thrifty: "A Scout uses resources wisely.",
+  Brave: "A Scout faces challenges with courage.",
+  Clean: "A Scout keeps their body and mind fit and clean.",
+  Reverent: "A Scout is respectful of their faith and others' beliefs."
+};
+
+const scoutLaw = Object.keys(scoutLawDetails);
 
 // A pool of incorrect answers to mix with the real points of the Scout Law
 const wrongAnswers = [
   "Adventurous","Bold","Creative","Curious","Determined","Energetic",
   "Generous","Honest","Imaginative","Patient","Punctual","Silly",
-  "Strong","Talented","Witty","Zany","Brilliant","Calm","Fearless","Speedy"
+  "Strong","Talented","Witty","Zany","Brilliant","Calm","Fearless","Speedy",
+  "Ambitious","Caring","Confident","Daring","Eager","Efficient",
+  "Forgiving","Gracious","Inventive","Jolly","Keen","Lively",
+  "Merry","Neat","Optimistic","Polite","Quick","Resourceful",
+  "Sincere","Tidy","Understanding","Valiant","Wise","Xenial",
+  "Youthful","Zealous"
 ];
 
 const startBtn = document.getElementById('startBtn');
@@ -58,13 +76,14 @@ function nextQuestion(){
 
 function select(choice, correct){
   Array.from(optionsEl.children).forEach(btn => btn.disabled = true);
+  const desc = scoutLawDetails[correct];
   if(choice === correct){
-    feedback.textContent = 'Correct!';
+    feedback.textContent = `Correct! ${correct}: ${desc}`;
     score++;
   }else{
-    feedback.textContent = `Oops! It\'s ${correct}.`;
+    feedback.textContent = `Oops! It's ${correct}: ${desc}`;
   }
-  setTimeout(nextQuestion, 1000);
+  setTimeout(nextQuestion, 2500);
 }
 
 function startGame(){
