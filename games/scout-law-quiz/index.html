@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scout Law Quiz • Pack 3735</title>
+  <meta name="theme-color" content="#003F87" />
+  <meta name="description" content="Test your knowledge of the twelve points of the Scout Law." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="/" aria-label="Back to Pack 3735">
+      <span class="crest">🟦</span>
+      <strong>Pack 3735</strong>
+    </a>
+    <a class="btn btn-ghost" href="../">← Back</a>
+  </header>
+  <main class="wrap">
+    <section class="hero card">
+      <div>
+        <h1>Scout Law Quiz</h1>
+        <p class="kicker">Can you name the twelve points of the Scout Law?</p>
+      </div>
+      <button id="startBtn" class="btn btn-primary">Start Quiz</button>
+    </section>
+    <section id="quiz" class="card" hidden>
+      <h2 id="question"></h2>
+      <div id="options" class="options"></div>
+      <div id="feedback" class="muted"></div>
+    </section>
+  </main>
+  <script src="./game.js" defer></script>
+</body>
+</html>
