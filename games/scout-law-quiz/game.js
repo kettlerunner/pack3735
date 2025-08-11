@@ -3,6 +3,13 @@ const scoutLaw = [
   "Obedient","Cheerful","Thrifty","Brave","Clean","Reverent"
 ];
 
+// A pool of incorrect answers to mix with the real points of the Scout Law
+const wrongAnswers = [
+  "Adventurous","Bold","Creative","Curious","Determined","Energetic",
+  "Generous","Honest","Imaginative","Patient","Punctual","Silly",
+  "Strong","Talented","Witty","Zany","Brilliant","Calm","Fearless","Speedy"
+];
+
 const startBtn = document.getElementById('startBtn');
 const quiz = document.getElementById('quiz');
 const questionEl = document.getElementById('question');
@@ -36,7 +43,7 @@ function nextQuestion(){
   questionEl.textContent = 'Which of these is a point of the Scout Law?';
   const opts = new Set([correct]);
   while(opts.size < 4){
-    opts.add(scoutLaw[Math.floor(Math.random() * scoutLaw.length)]);
+    opts.add(wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)]);
   }
   const shuffled = Array.from(opts).sort(() => Math.random() - 0.5);
   optionsEl.innerHTML = '';
