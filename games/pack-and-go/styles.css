@@ -1,0 +1,84 @@
+/* —— Tokens (match your site) —— */
+:root{
+  --blue:#003F87; /* Cub Scout Blue */
+  --gold:#FCD116; /* Cub Scout Gold */
+  --pale:#9AB3D5;
+  --bg:#ffffff;
+  --ink:#0b0b0b;
+  --ink-2:#4b5563;
+  --border:#e5e7eb;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.muted{color:var(--ink-2)}
+.small{font-size:14px}
+
+/* —— UI chrome —— */
+.topbar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:10px 12px}
+.logo{display:flex;gap:8px;align-items:center}
+.logo .crest{width:20px;height:20px;display:inline-block;background:var(--blue);border-radius:4px}
+
+/* —— Buttons —— */
+.btn{display:inline-block;padding:10px 14px;border-radius:16px;border:1px solid var(--border);font-weight:600}
+.btn-ghost{background:#fff}
+.btn-outline{background:#fff}
+.btn-primary{background:var(--gold);border-color:var(--gold);color:var(--blue)}
+
+/* —— Cards / layout —— */
+.card{border:1px solid var(--border);border-radius:18px;background:#fff;padding:16px}
+.card-small{border:1px solid var(--border);border-radius:12px;background:#fff;padding:10px}
+.wrap{max-width:960px;margin:0 auto;padding:16px}
+.hero{display:flex;flex-direction:column;gap:12px}
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+.hud{display:grid;gap:12px;margin:12px 0;grid-template-columns:1fr}
+@media (min-width:700px){ .hud{grid-template-columns:1fr 2fr 1fr} }
+
+.score{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.score .label{display:block;font-size:12px;color:var(--ink-2)}
+.timer{padding:8px;display:flex;align-items:center}
+.timer .bar{height:10px;border-radius:8px;background:linear-gradient(90deg,var(--gold),#ffe98a);width:100%;transform-origin:left}
+.patches .patch-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.patch{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);background:#f8fafc}
+.patch.earned{background:var(--gold);border-color:var(--gold);color:var(--blue)}
+
+.stage{display:grid;gap:12px}
+@media (min-width:760px){ .stage{grid-template-columns:280px 1fr} }
+
+.pack-title{margin:0 0 8px}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0;padding:0;list-style:none}
+.slot{height:56px;border:1px dashed var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--ink-2)}
+.slot.filled{border-style:solid;background:#fbf8e6;color:#1f2937}
+
+.board{min-height:360px;border:1px dashed var(--border);border-radius:12px;padding:8px;display:grid;gap:8px;
+  grid-template-columns:repeat(3, 1fr)}
+@media (min-width:480px){ .board{grid-template-columns:repeat(4, 1fr)} }
+@media (min-width:900px){ .board{grid-template-columns:repeat(5, 1fr)} }
+
+.item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  padding:10px;border:1px solid var(--border);border-radius:12px;background:#fff;cursor:pointer;min-height:86px}
+.item .emoji{font-size:28px;line-height:1}
+.item .name{font-size:12px;text-align:center}
+.item.good{box-shadow:0 0 0 2px var(--gold) inset}
+.item.bad{animation:shake .3s}
+.item[disabled]{opacity:.45;pointer-events:none}
+@keyframes shake{10%,90%{transform:translateX(-1px)} 20%,80%{transform:translateX(2px)} 30%,50%,70%{transform:translateX(-4px)} 40%,60%{transform:translateX(4px)}}
+
+/* —— Modals —— */
+.modal{border:none;border-radius:18px;padding:0}
+.modal::backdrop{background:rgba(0,0,0,.65)}
+.modal-inner{max-width:520px}
+.howlist{margin:0 0 8px 18px}
+.grid6{display:grid;grid-template-columns:repeat(3,auto);gap:6px}
+.pill{padding:4px 8px;border-radius:999px;border:1px solid var(--border);background:#f8fafc}
+.modal-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+/* —— Focus —— */
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
+
+/* — Reduced motion — */
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}

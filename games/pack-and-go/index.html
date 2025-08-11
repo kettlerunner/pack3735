@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pack & Go — Six Essentials • Pack 3735</title>
+  <meta name="theme-color" content="#003F87" />
+  <meta name="description" content="Pack & Go — a fast, fun game to learn the Cub Scout Six Essentials." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="/" aria-label="Back to Pack 3735">
+      <span class="crest">🟦</span>
+      <strong>Pack 3735</strong>
+    </a>
+    <a class="btn btn-ghost" href="/">← Back</a>
+  </header>
+
+  <main class="wrap">
+    <section class="hero card">
+      <div>
+        <h1>Pack & Go</h1>
+        <p class="kicker">Grab the <strong>Six Essentials</strong> before time runs out. Tap to pack, avoid the silly decoys.</p>
+      </div>
+      <div class="controls">
+        <button id="startBtn" class="btn btn-primary">Start Round</button>
+        <button id="howBtn" class="btn btn-outline">How to Play</button>
+        <button id="soundBtn" class="btn btn-outline" aria-pressed="false">Sound: Off</button>
+      </div>
+    </section>
+
+    <!-- HUD -->
+    <section class="hud">
+      <div class="score card">
+        <div><span class="label">Score</span><span id="score">0</span></div>
+        <div><span class="label">High</span><span id="high">0</span></div>
+        <div><span class="label">Packed</span><span id="packed">0/6</span></div>
+      </div>
+      <div class="timer card" aria-label="Time remaining">
+        <div id="bar" class="bar"></div>
+      </div>
+      <div class="patches card" aria-label="Earned patches">
+        <span class="label">Patches</span>
+        <div id="patchRow" class="patch-row" title="Local to this device"></div>
+      </div>
+    </section>
+
+    <!-- Game stage -->
+    <section class="stage card">
+      <div class="pack">
+        <h2 class="pack-title">Backpack</h2>
+        <ul id="slots" class="slots" role="list" aria-live="polite" aria-label="Packed items"></ul>
+      </div>
+      <div class="board" id="board" aria-label="Items to pack">
+        <!-- items injected here -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Result / Tips modal -->
+  <dialog id="modal" class="modal">
+    <form method="dialog" class="modal-inner card">
+      <h3 id="resultTitle">Great job!</h3>
+      <p id="resultBody" class="muted"></p>
+      <div id="tipCard" class="tip card-small">
+        <strong id="tipTitle">Tip</strong>
+        <div id="tipText" class="muted small"></div>
+      </div>
+      <div class="modal-actions">
+        <button value="default" class="btn btn-primary" id="againBtn">Play Again</button>
+        <button value="cancel" class="btn btn-outline" id="shareBtn">Share</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- How-to modal -->
+  <dialog id="how" class="modal">
+    <form method="dialog" class="modal-inner card">
+      <h3>How to Play</h3>
+      <ol class="howlist">
+        <li>Tap items to pack them. You need all <strong>six essentials</strong>.</li>
+        <li>Decoys cost points. Beat the clock for a time bonus.</li>
+        <li>Earn the <strong>Six Essentials Patch</strong> by packing all six.</li>
+      </ol>
+      <div class="grid6">
+        <span class="pill">Water</span>
+        <span class="pill">Trail Food</span>
+        <span class="pill">First Aid</span>
+        <span class="pill">Sun Protection</span>
+        <span class="pill">Whistle</span>
+        <span class="pill">Flashlight</span>
+      </div>
+      <div class="modal-actions">
+        <button value="default" class="btn btn-primary">Let’s Go</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="./game.js" defer></script>
+</body>
+</html>
