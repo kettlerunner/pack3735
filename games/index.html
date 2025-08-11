@@ -6,38 +6,96 @@
   <title>Games • Pack 3735</title>
   <meta name="description" content="Learn by playing—Pack 3735 games." />
   <link rel="stylesheet" href="../css/styles.css" />
-  <style>
-    .topbar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:10px 12px}
-    .logo{display:flex;gap:8px;align-items:center;text-decoration:none}
-    .logo .crest{width:20px;height:20px;display:inline-block;background:var(--blue);border-radius:4px}
-  </style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="logo" href="/" aria-label="Back to Pack 3735">
-      <span class="crest">🟦</span>
-      <strong>Pack 3735</strong>
-    </a>
-  </header>
-  <main class="wrap">
-    <h1>Games</h1>
-    <p class="muted">Learn by playing.</p>
-    <div class="game-list">
-      <a class="card game-tile" href="pack-and-go/">
-        <div class="tile-body">
-          <h3>Pack &amp; Go — Six Essentials</h3>
-          <p class="muted">Tap to pack the essentials. Beat the clock, earn the patch.</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="logo" aria-label="Pack 3735 home">
+        <img id="crestHeader" src="/assets/cub-scout-crest.svg" alt="Cub Scouts crest"
+             onerror="this.src='https://www.scouting.org/wp-content/uploads/2021/08/cu-bs-logo.png'" />
+        <div class="logo-text">
+          <div class="muted small">Cub Scouts • Ripon, WI</div>
+          <div class="brand">Pack 3735</div>
         </div>
-        <div class="tile-cta">Play →</div>
       </a>
-      <a class="card game-tile" href="scout-law-quiz/">
-        <div class="tile-body">
-          <h3>Scout Law Quiz</h3>
-          <p class="muted">Test your knowledge of the Scout Law.</p>
-        </div>
-        <div class="tile-cta">Play →</div>
-      </a>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a href="/#about">About</a>
+        <a href="/#dens">Dens</a>
+        <a href="/#events">Events</a>
+        <a href="/#photos">Photos</a>
+        <a href="/#join">Join</a>
+        <a href="/games/">Games</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+
+      <div class="navcta">
+        <a class="btn btn-primary" href="/#join">Join Now</a>
+      </div>
+
+      <button class="hamb" id="openNav" aria-expanded="false" aria-controls="drawer" aria-label="Open navigation">☰</button>
     </div>
+
+    <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+      <div class="scrim" id="closeNav" tabindex="-1"></div>
+      <div class="sheet">
+        <div class="sheet-head">
+          <div class="sheet-brand">
+            <img src="/assets/cub-scout-crest.svg" alt="" onerror="this.src='https://www.scouting.org/wp-content/uploads/2021/08/cu-bs-logo.png'" />
+            <strong>Pack 3735</strong>
+          </div>
+          <button id="closeNavBtn" class="hamb" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="sheet-links">
+          <a class="item" href="/#about">About <span aria-hidden="true">›</span></a>
+          <a class="item" href="/#dens">Dens <span aria-hidden="true">›</span></a>
+          <a class="item" href="/#events">Events <span aria-hidden="true">›</span></a>
+          <a class="item" href="/#photos">Photos <span aria-hidden="true">›</span></a>
+          <a class="item" href="/#join">Join <span aria-hidden="true">›</span></a>
+          <a class="item" href="/games/">Games <span aria-hidden="true">›</span></a>
+          <a class="item" href="/#contact">Contact <span aria-hidden="true">›</span></a>
+          <a class="btn btn-primary" href="https://beascout.scouting.org/" target="_blank" rel="noopener noreferrer" style="text-decoration:none">Find Us on BeAScout ↗</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section>
+      <div class="container">
+        <h1>Games</h1>
+        <p class="muted">Learn by playing.</p>
+        <a class="card game-tile" href="pack-and-go/">
+          <div class="tile-body">
+            <h3>Pack &amp; Go — Six Essentials</h3>
+            <p class="muted">Tap to pack the essentials. Beat the clock, earn the patch.</p>
+          </div>
+          <div class="tile-cta">Play →</div>
+        </a>
+        <a class="card game-tile" href="scout-law-quiz/">
+          <div class="tile-body">
+            <h3>Scout Law Quiz</h3>
+            <p class="muted">Test your knowledge of the Scout Law.</p>
+          </div>
+          <div class="tile-cta">Play →</div>
+        </a>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="container foot">
+      <div>© <span id="yr"></span> Pack 3735 • Ripon, WI</div>
+      <div class="muted legal">
+        This local unit site complements official Scouting America systems. Respect youth privacy: first names only, opt-in photos,
+        no youth contact details. “Cub Scouts,” program marks, and emblems are trademarks of Scouting America; used here per local unit guidance.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/script.js" defer></script>
 </body>
 </html>
+
