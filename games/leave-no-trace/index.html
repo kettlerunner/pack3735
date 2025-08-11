@@ -12,14 +12,11 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="game-header">
-    <a href="/games/" class="back" aria-label="Back to games">← Back</a>
-    <h1 class="title">Leave No Trace Ranger</h1>
-  </header>
+  <div id="siteHeader"></div>
 
   <main id="main" class="wrap">
     <section class="hero card">
-      <h2>Protect the outdoors.</h2>
+      <h1>Leave No Trace Ranger</h1>
       <p class="muted">Swipe left or right to choose the Leave No Trace way.</p>
       <div class="controls">
         <button id="startBtn" class="btn btn-primary">Start</button>
@@ -66,6 +63,17 @@
 
   <div id="confetti" aria-hidden="true"></div>
 
+  <footer>
+    <div class="container foot">
+      <div>© <span id="yr"></span> Pack 3735 • Ripon, WI</div>
+      <div class="muted legal">
+        This local unit site complements official Scouting America systems. Respect youth privacy: first names only, opt-in photos,
+        no youth contact details. “Cub Scouts,” program marks, and emblems are trademarks of Scouting America; used here per local unit guidance.
+      </div>
+    </div>
+  </footer>
+
   <script src="./game.js" defer></script>
+  <script src="../../js/script.js" defer></script>
 </body>
 </html>

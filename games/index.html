@@ -18,57 +18,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container nav">
-      <a href="/" class="logo" aria-label="Pack 3735 home">
-        <img id="crestHeader" src="/assets/cub-scout-crest.svg" alt="Cub Scouts crest"
-             onerror="this.src='https://www.scouting.org/wp-content/uploads/2021/08/cu-bs-logo.png'" />
-        <div class="logo-text">
-          <div class="muted small">Cub Scouts • Ripon, WI</div>
-          <div class="brand">Pack 3735</div>
-        </div>
-      </a>
-
-      <nav class="navlinks" aria-label="Primary">
-        <a href="/#about">About</a>
-        <a href="/#dens">Dens</a>
-        <a href="/#events">Events</a>
-        <a href="/#photos">Photos</a>
-        <a href="/#join">Join</a>
-        <a href="/games/">Games</a>
-        <a href="/#contact">Contact</a>
-      </nav>
-
-      <div class="navcta">
-        <a class="btn btn-primary" href="/#join">Join Now</a>
-      </div>
-
-      <button class="hamb" id="openNav" aria-expanded="false" aria-controls="drawer" aria-label="Open navigation">☰</button>
-    </div>
-
-    <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
-      <div class="scrim" id="closeNav" tabindex="-1"></div>
-      <div class="sheet">
-        <div class="sheet-head">
-          <div class="sheet-brand">
-            <img src="/assets/cub-scout-crest.svg" alt="" onerror="this.src='https://www.scouting.org/wp-content/uploads/2021/08/cu-bs-logo.png'" />
-            <strong>Pack 3735</strong>
-          </div>
-          <button id="closeNavBtn" class="hamb" aria-label="Close menu">✕</button>
-        </div>
-        <nav class="sheet-links">
-          <a class="item" href="/#about">About <span aria-hidden="true">›</span></a>
-          <a class="item" href="/#dens">Dens <span aria-hidden="true">›</span></a>
-          <a class="item" href="/#events">Events <span aria-hidden="true">›</span></a>
-          <a class="item" href="/#photos">Photos <span aria-hidden="true">›</span></a>
-          <a class="item" href="/#join">Join <span aria-hidden="true">›</span></a>
-          <a class="item" href="/games/">Games <span aria-hidden="true">›</span></a>
-          <a class="item" href="/#contact">Contact <span aria-hidden="true">›</span></a>
-          <a class="btn btn-primary" href="https://beascout.scouting.org/" target="_blank" rel="noopener noreferrer" style="text-decoration:none">Find Us on BeAScout ↗</a>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <div id="siteHeader"></div>
 
   <main id="main">
     <section>
@@ -86,6 +36,13 @@
           <div class="tile-body">
             <h3>Leave No Trace Ranger</h3>
             <p class="muted">Swipe choices to learn outdoor ethics.</p>
+          </div>
+          <div class="tile-cta">Play →</div>
+        </a>
+        <a class="card game-tile" href="scout-law-quiz/">
+          <div class="tile-body">
+            <h3>Scout Law Quiz</h3>
+            <p class="muted">Test your knowledge of the twelve points.</p>
           </div>
           <div class="tile-cta">Play →</div>
         </a>

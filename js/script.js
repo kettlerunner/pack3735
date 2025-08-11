@@ -3,52 +3,63 @@ const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
 // Year
-$('#yr').textContent = new Date().getFullYear();
+const yrEl = $('#yr');
+if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-// Mobile drawer
-const drawer = $('#drawer');
-const openNav = $('#openNav');
-const closeNav = $('#closeNav');
-const closeNavBtn = $('#closeNavBtn');
-const sheetLinks = $$('.sheet a');
-let lastFocused = null;
+function initNav(){
+  const drawer = $('#drawer');
+  const openNav = $('#openNav');
+  const closeNav = $('#closeNav');
+  const closeNavBtn = $('#closeNavBtn');
+  const sheetLinks = $$('.sheet a');
+  let lastFocused = null;
+  if (!drawer || !openNav || !closeNav || !closeNavBtn) return;
 
-function openDrawer(){
-  drawer.classList.add('open');
-  openNav.setAttribute('aria-expanded', 'true');
-  lastFocused = document.activeElement;
-  // focus first interactive element in sheet
-  const first = $('.sheet a, .sheet button');
-  if (first) first.focus();
+  function openDrawer(){
+    drawer.classList.add('open');
+    openNav.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('nav-open');
+    lastFocused = document.activeElement;
+    const first = $('.sheet a, .sheet button');
+    if (first) first.focus();
+    document.addEventListener('keydown', trapFocus);
+    document.addEventListener('keydown', escToClose);
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    openNav.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
+    document.removeEventListener('keydown', trapFocus);
+    document.removeEventListener('keydown', escToClose);
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+  function trapFocus(e){
+    if (e.key !== 'Tab') return;
+    const focusables = $$('.sheet button, .sheet a');
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  }
+  function escToClose(e){
+    if (e.key === 'Escape') { closeDrawer(); }
+  }
 
-  // Trap focus
-  document.addEventListener('keydown', trapFocus);
-  document.addEventListener('keydown', escToClose);
-}
-function closeDrawer(){
-  drawer.classList.remove('open');
-  openNav.setAttribute('aria-expanded', 'false');
-  document.removeEventListener('keydown', trapFocus);
-  document.removeEventListener('keydown', escToClose);
-  if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
-}
-function trapFocus(e){
-  if (e.key !== 'Tab') return;
-  const focusables = $$('.sheet button, .sheet a');
-  if (!focusables.length) return;
-  const first = focusables[0];
-  const last = focusables[focusables.length - 1];
-  if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-  else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-}
-function escToClose(e){
-  if (e.key === 'Escape') { closeDrawer(); }
+  openNav.addEventListener('click', openDrawer);
+  closeNav.addEventListener('click', closeDrawer);
+  closeNavBtn.addEventListener('click', closeDrawer);
+  sheetLinks.forEach(a => a.addEventListener('click', closeDrawer));
 }
 
-openNav.addEventListener('click', openDrawer);
-closeNav.addEventListener('click', closeDrawer);
-closeNavBtn.addEventListener('click', closeDrawer);
-sheetLinks.forEach(a => a.addEventListener('click', closeDrawer));
+(async function loadHeader(){
+  const placeholder = document.getElementById('siteHeader');
+  if (placeholder){
+    const res = await fetch('/partials/header.html');
+    placeholder.outerHTML = await res.text();
+  }
+  initNav();
+})();
 
 /* -------- Social gallery: likes, filters, share, lightbox -------- */
 
@@ -178,17 +189,6 @@ sheetLinks.forEach(a => a.addEventListener('click', closeDrawer));
   btnClose.addEventListener('click', closeLB);
   btnPrev.addEventListener('click', prev);
   btnNext.addEventListener('click', next);
-
-function openDrawer(){
-  drawer.classList.add('open');
-  document.body.classList.add('nav-open');
-  // (rest unchanged)
-}
-function closeDrawer(){
-  drawer.classList.remove('open');
-  document.body.classList.remove('nav-open');
-  // (rest unchanged)
-}
 
   // Swipe navigation (phones)
   let startX = null;
