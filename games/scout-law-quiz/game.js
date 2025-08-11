@@ -34,6 +34,10 @@ const questionEl = document.getElementById('question');
 const optionsEl = document.getElementById('options');
 const feedback = document.getElementById('feedback');
 const progress = document.getElementById('progress');
+const timer = document.getElementById('timer');
+const timerBar = document.getElementById('timerBar');
+
+const WAIT_TIME = 5000; // ms delay before next question
 
 let remaining = [];
 let score = 0;
@@ -41,6 +45,9 @@ let qNum = 0;
 
 function nextQuestion(){
   feedback.textContent = '';
+  timer.style.visibility = 'hidden';
+  timerBar.style.transition = 'none';
+  timerBar.style.width = '0%';
   if(remaining.length === 0){
     questionEl.textContent = `You scored ${score} / ${scoutLaw.length}!`;
     optionsEl.innerHTML = '';
@@ -83,7 +90,13 @@ function select(choice, correct){
   }else{
     feedback.textContent = `Oops! It's ${correct}: ${desc}`;
   }
-  setTimeout(nextQuestion, 2500);
+  timer.style.visibility = 'visible';
+  timerBar.style.transition = 'none';
+  timerBar.style.width = '0%';
+  timerBar.offsetWidth; // force reflow
+  timerBar.style.transition = `width ${WAIT_TIME}ms linear`;
+  timerBar.style.width = '100%';
+  setTimeout(nextQuestion, WAIT_TIME);
 }
 
 function startGame(){

@@ -1,3 +1,6 @@
 .wrap{max-width:960px;margin:0 auto;padding:16px}
 .card{padding:16px}
 .options{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.options button{font-size:20px}
+.timer{height:6px;background:var(--border);margin:8px 0;border-radius:3px;overflow:hidden;visibility:hidden}
+.timer-bar{height:100%;width:0;background:var(--blue)}
