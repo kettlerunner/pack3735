@@ -1,0 +1,39 @@
+.wrap{max-width:640px;margin:0 auto;padding:16px}
+.game-header{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;padding:8px 12px;background:rgba(255,255,255,.95);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
+.game-header .back{font-weight:600}
+.game-header .title{margin:0;font-size:18px}
+.hero{display:flex;flex-direction:column;gap:12px}
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+.hud{display:grid;gap:12px;margin:12px 0;grid-template-columns:1fr}
+.score{display:grid;gap:4px;padding:12px}
+.score-row{display:flex;justify-content:space-between;align-items:center}
+.score .label{font-size:12px;color:var(--ink-2)}
+.combo{margin-left:6px;font-weight:700;color:var(--gold)}
+.timer{padding:8px}
+.timer .bar{height:8px;border-radius:6px;background:linear-gradient(90deg,var(--gold),#ffe98a);width:100%;transform-origin:left}
+.stage{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:20px}
+.question{position:relative;min-height:260px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;touch-action:none}
+.question.dragging{box-shadow:0 8px 20px rgba(0,0,0,.15)}
+.question.correct{background:#d1fae5}
+.question.wrong{animation:shake .4s}
+.question .icon{font-size:48px;line-height:1}
+.question .category{font-size:14px;color:var(--ink-2)}
+.question .prompt{font-size:20px;line-height:1.3;margin-top:8px}
+.chips{display:flex;gap:12px;width:100%}
+.chip{flex:1;padding:12px;border:1px solid var(--border);border-radius:18px;background:#fff}
+.chip:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:14px}
+.ghost{position:absolute;top:50%;transform:translateY(-50%);font-weight:700;font-size:18px;opacity:0;pointer-events:none}
+.ghost.left{left:16px}
+.ghost.right{right:16px}
+.question.dragging .ghost{opacity:.4}
+.recap{list-style:disc;margin:12px 0 0 20px;padding:0}
+.modal{border:none;border-radius:18px;padding:0}
+.modal::backdrop{background:rgba(0,0,0,.65)}
+.modal-inner{max-width:520px}
+.modal-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+#confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:100}
+.sticker{position:absolute;bottom:40%;left:50%;transform:translateX(-50%);font-size:32px;background:#fff;border-radius:12px;padding:8px 12px;box-shadow:0 2px 6px rgba(0,0,0,.2);}
+.confetti-piece{position:absolute;width:8px;height:8px;background:var(--gold);animation:fall 1s linear forwards}
+@keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+@keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
