@@ -8,11 +8,31 @@ const quiz = document.getElementById('quiz');
 const questionEl = document.getElementById('question');
 const optionsEl = document.getElementById('options');
 const feedback = document.getElementById('feedback');
+const progress = document.getElementById('progress');
+
+let remaining = [];
+let score = 0;
+let qNum = 0;
 
 function nextQuestion(){
   feedback.textContent = '';
-  const correctIndex = Math.floor(Math.random() * scoutLaw.length);
-  const correct = scoutLaw[correctIndex];
+  if(remaining.length === 0){
+    questionEl.textContent = `You scored ${score} / ${scoutLaw.length}!`;
+    optionsEl.innerHTML = '';
+    const again = document.createElement('button');
+    again.textContent = 'Play Again';
+    again.className = 'btn btn-primary';
+    again.addEventListener('click', startGame);
+    optionsEl.appendChild(again);
+    progress.textContent = '';
+    return;
+  }
+
+  qNum++;
+  progress.textContent = `Question ${qNum} of ${scoutLaw.length}`;
+
+  const correctIndex = Math.floor(Math.random() * remaining.length);
+  const correct = remaining.splice(correctIndex,1)[0];
   questionEl.textContent = 'Which of these is a point of the Scout Law?';
   const opts = new Set([correct]);
   while(opts.size < 4){
@@ -30,16 +50,23 @@ function nextQuestion(){
 }
 
 function select(choice, correct){
+  Array.from(optionsEl.children).forEach(btn => btn.disabled = true);
   if(choice === correct){
     feedback.textContent = 'Correct!';
+    score++;
   }else{
     feedback.textContent = `Oops! It\'s ${correct}.`;
   }
   setTimeout(nextQuestion, 1000);
 }
 
-startBtn.addEventListener('click', () => {
+function startGame(){
   startBtn.style.display = 'none';
   quiz.hidden = false;
+  remaining = [...scoutLaw];
+  score = 0;
+  qNum = 0;
   nextQuestion();
-});
+}
+
+startBtn.addEventListener('click', startGame);

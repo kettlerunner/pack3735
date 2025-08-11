@@ -58,7 +58,7 @@ img{max-width:100%;display:block}
 /* Drawer */
 .drawer{position:fixed;inset:0;display:none}
 .drawer.open{display:block}
-.scrim{position:absolute;inset:0;background:rgba(0,0,0,.35)}
+.scrim{position:absolute;inset:0;background:#fff}
 .sheet{position:absolute;right:0;top:0;bottom:0;width:85vw;max-width:360px;background:#fff;box-shadow:-12px 0 24px rgba(0,0,0,.12);padding:16px 16px 24px;display:flex;flex-direction:column;gap:8px}
 .sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .sheet-brand{display:flex;align-items:center;gap:8px}
@@ -69,9 +69,9 @@ img{max-width:100%;display:block}
 /* Mobile drawer readability */
 .drawer{ position:fixed; inset:0; display:none; z-index:80; } /* on top of hero */
 .drawer.open{ display:block; }
-.scrim{ background:rgba(0,0,0,.55); }           /* darker dimmer behind the sheet */
+.scrim{ background:#fff; }           /* solid backdrop to hide page */
 .sheet{
-  background:#fff;                               /* <-- solid white panel */
+  background:#fff;                               /* solid white panel */
   backdrop-filter:none; -webkit-backdrop-filter:none;
   border-left:1px solid var(--border);
 }
