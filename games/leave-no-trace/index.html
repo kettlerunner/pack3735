@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leave No Trace Ranger • Pack 3735</title>
+  <meta name="theme-color" content="#003F87" />
+  <meta name="description" content="Swipe through scenarios to become a Leave No Trace Ranger." />
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="game-header">
+    <a href="/games/" class="back" aria-label="Back to games">← Back</a>
+    <h1 class="title">Leave No Trace Ranger</h1>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero card">
+      <h2>Protect the outdoors.</h2>
+      <p class="muted">Swipe left or right to choose the Leave No Trace way.</p>
+      <div class="controls">
+        <button id="startBtn" class="btn btn-primary">Start</button>
+        <button id="dailyBtn" class="btn btn-outline">Today’s Deck</button>
+        <button id="soundBtn" class="btn btn-outline" aria-pressed="false">Sound: Off</button>
+      </div>
+    </section>
+
+    <section class="hud" hidden>
+      <div class="score card" aria-label="Scoreboard">
+        <div class="score-row"><span class="label">Score</span><span id="score">0</span><span id="combo" class="combo"></span></div>
+        <div class="score-row"><span class="label">Streak</span><span id="streak">0</span></div>
+        <div class="score-row"><span class="label">Rank</span><span id="rank">Trail Scout</span></div>
+      </div>
+      <div class="timer card" aria-label="Time remaining"><div id="bar" class="bar"></div></div>
+    </section>
+
+    <section class="stage" hidden>
+      <div id="card" class="question card" tabindex="0">
+        <!-- scenario injected here -->
+        <div class="ghost left" id="ghostLeft"></div>
+        <div class="ghost right" id="ghostRight"></div>
+      </div>
+      <div class="chips" id="chips">
+        <button id="leftBtn" class="chip" aria-label="Left choice"></button>
+        <button id="rightBtn" class="chip" aria-label="Right choice"></button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="end" class="modal">
+    <form method="dialog" class="modal-inner card">
+      <h3 id="endTitle">Round Over</h3>
+      <p id="endScore" class="muted"></p>
+      <p id="endStreak" class="muted"></p>
+      <ul id="recap" class="recap"></ul>
+      <div class="modal-actions">
+        <button id="againBtn" class="btn btn-primary">Play Again</button>
+        <button id="dailyAgainBtn" class="btn btn-outline">Today’s Deck</button>
+        <button id="shareBtn" class="btn btn-outline">Share</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="confetti" aria-hidden="true"></div>
+
+  <script src="./game.js" defer></script>
+</body>
+</html>
