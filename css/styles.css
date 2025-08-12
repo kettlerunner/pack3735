@@ -104,8 +104,8 @@ img{max-width:100%;display:block}
   pointer-events:none;
   z-index:1;
 }
-.crest img{width:100px;height:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))}
-@media (min-width: 768px){.crest img{width:200px}
+.crest img{width:200px;height:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))}
+@media (min-width: 768px){.crest img{width:200px}}
 
 .hero h1{font-size:40px;line-height:1.1;margin:0}
 .hero p{max-width:640px;margin:16px 0 0;color:rgba(255,255,255,.9);font-size:18px}
