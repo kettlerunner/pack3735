@@ -25,7 +25,25 @@ const wrongAnswers = [
   "Forgiving","Gracious","Inventive","Jolly","Keen","Lively",
   "Merry","Neat","Optimistic","Polite","Quick","Resourceful",
   "Sincere","Tidy","Understanding","Valiant","Wise","Xenial",
-  "Youthful","Zealous"
+  "Youthful","Zealous",
+  // Added:
+  "Accountable","Adaptable","Affable","Alert","Altruistic","Approachable",
+  "Attentive","Balanced","Benevolent","Cautious","Civic-Minded","Committed",
+  "Compassionate","Composed","Conscientious","Considerate","Constructive",
+  "Cooperative","Courageous","Decisive","Dependable","Diligent","Discreet",
+  "Disciplined","Devoted","Devout","Diplomatic","Earnest","Empathetic",
+  "Encouraging","Enterprising","Ethical","Even-Tempered","Fair","Fair-Minded",
+  "Faithful","Focused","Frugal","Gallant","Gentle","Genuine","Grateful",
+  "Hardworking","Honorable","Humble","Humorous","Impartial","Inclusive",
+  "Independent","Industrious","Inquisitive","Insightful","Intrepid","Just",
+  "Law-Abiding","Level-Headed","Magnanimous","Methodical","Modest","Noble",
+  "Observant","Open-Minded","Orderly","Organized","Peaceful","Persevering",
+  "Persistent","Playful","Positive","Practical","Prepared","Principled",
+  "Proactive","Productive","Protective","Prudent","Quick-Witted","Reliable",
+  "Respectful","Responsible","Responsive","Self-Controlled","Self-Reliant",
+  "Selfless","Sociable","Spirited","Steadfast","Supportive","Tactful",
+  "Temperate","Thoughtful","Thorough","Truthful","Unassuming","Upbeat",
+  "Vigilant","Welcoming","Well-Mannered"
 ];
 
 const startBtn = document.getElementById('startBtn');
