@@ -7,6 +7,7 @@
   --ink:#0b0b0b;
   --ink-2:#4b5563;
   --border:#e5e7eb;
+  --content-max:1120px; /* unify container width */
 }
 
 /* Base */
@@ -16,7 +17,7 @@ a{color:inherit;text-decoration:none}
 a:hover{text-decoration:underline}
 img{max-width:100%;display:block}
 
-.container{max-width:1120px;margin:0 auto;padding:0 16px}
+.container{max-width:var(--content-max);margin:0 auto;padding:0 16px}
 .small{font-size:13px}
 .brand{font-weight:800}
 .btn{display:inline-block;padding:12px 18px;border-radius:16px;font-weight:600;border:1px solid transparent;text-align:center}
@@ -82,10 +83,29 @@ img{max-width:100%;display:block}
 
 /* Hero */
 .hero{position:relative;color:#fff}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--blue),var(--pale))}
-.crest{position:absolute;right:16px;top:16px;opacity:.18;user-select:none;pointer-events:none}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--blue),var(--pale));z-index:0}
+
+/* Anchor crest to the same max-width container */
+.hero-inner{
+  position:relative;
+  max-width:var(--content-max);
+  margin-inline:auto;
+  padding:10px 10px;
+  z-index:1; /* ensures content/crest sit above bg */
+}
+
+/* crest now sits inside .hero-inner */
+.crest{
+  position:absolute;
+  top:16px;
+  right:16px;
+  opacity:.18;
+  user-select:none;
+  pointer-events:none;
+  z-index:1;
+}
 .crest img{width:100px;height:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))}
-.hero-inner{position:relative;padding:10px 10px}
+
 .hero h1{font-size:40px;line-height:1.1;margin:0}
 .hero p{max-width:640px;margin:16px 0 0;color:rgba(255,255,255,.9);font-size:18px}
 .hero .actions{display:flex;flex-direction:column;gap:10px;margin-top:24px}
@@ -236,5 +256,3 @@ footer{border-top:1px solid var(--border)}
 .game-tile:hover{box-shadow:0 4px 14px rgba(0,0,0,.06)}
 .tile-badge{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--gold);color:var(--blue);display:inline-block}
 .tile-cta{font-weight:700}
-
-
