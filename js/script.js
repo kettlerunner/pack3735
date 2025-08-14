@@ -226,9 +226,19 @@ function initNav(){
 (()=> {
   // Sticky announcement bar
   const bar = document.querySelector('.popcorn-bar');
-  const close = document.querySelector('.popcorn-bar__close');
-  if (localStorage.getItem('popcornBarClosed') === '1' && bar) bar.remove();
-  close?.addEventListener('click', () => { localStorage.setItem('popcornBarClosed','1'); bar.remove(); });
+
+  const close = bar?.querySelector('.popcorn-bar__close');
+  const root = document.documentElement;
+  if (localStorage.getItem('popcornBarClosed') === '1' && bar) {
+    bar.remove();
+  } else if (bar) {
+    root.style.setProperty('--popcorn-bar-height', bar.offsetHeight + 'px');
+    close?.addEventListener('click', () => {
+      localStorage.setItem('popcornBarClosed','1');
+      bar.remove();
+      root.style.removeProperty('--popcorn-bar-height');
+    });
+  }
 
   async function initPopcorn(){
     const t = document.querySelector('.pcn-thermo');
@@ -255,18 +265,35 @@ function initNav(){
       };
       tick(); setInterval(tick,1000);
     }
-
-    const confetti = (x,y)=>{
-      const cv=document.getElementById('popcorn-confetti'); if(!cv) return;
-      const ctx=cv.getContext('2d'); const W=cv.width=cv.offsetWidth, H=cv.height=cv.offsetHeight;
-      const parts=Array.from({length:120},()=>({x:x*W,y:y*H,vx:(Math.random()-.5)*6,vy:(Math.random()*-6-2),g:.18,sz:2+Math.random()*3,ttl:60+Math.random()*30}));
-      const colors=['#FCD116','#ffd54d','#003F87','#ffffff']; let f=0;
-      (function anim(){
-        ctx.clearRect(0,0,W,H); f++;
-        parts.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.ttl--;ctx.fillStyle=colors[(p.sz|0)%colors.length];ctx.fillRect(p.x,p.y,p.sz,p.sz);});
-        if(f<110) requestAnimationFrame(anim);
-      })();
-    };
+      const confetti = (x,y)=>{
+        const cv = document.getElementById('popcorn-confetti');
+        if(!cv) return;
+        const ctx = cv.getContext('2d');
+        const W = cv.width = cv.offsetWidth, H = cv.height = cv.offsetHeight;
+        const parts = Array.from({length:120},()=>({
+          x: x*W,
+          y: y*H,
+          vx: (Math.random()-.5)*6,
+          vy: (Math.random()*-6-2),
+          g: .18,
+          sz: 2 + Math.random()*3,
+          ttl: 60 + Math.random()*30
+        }));
+        const colors = ['#FCD116','#ffd54d','#003F87','#ffffff'];
+        let f = 0;
+        (function anim(){
+          ctx.clearRect(0,0,W,H); f++;
+          parts.forEach(p=>{
+            p.vy+=p.g;
+            p.x+=p.vx;
+            p.y+=p.vy;
+            p.ttl--;
+            ctx.fillStyle=colors[(p.sz|0)%colors.length];
+            ctx.fillRect(p.x,p.y,p.sz,p.sz);
+          });
+          if(f<110) requestAnimationFrame(anim);
+        })();
+      };
     document.querySelectorAll('.popcorn-cta a').forEach(a=>{
       a.addEventListener('click',e=>{
         const r=e.currentTarget.getBoundingClientRect();
