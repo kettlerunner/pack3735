@@ -223,3 +223,68 @@ function initNav(){
   }
 })();
 
+(()=> {
+  // Sticky announcement bar
+  const bar = document.querySelector('.popcorn-bar');
+  const close = document.querySelector('.popcorn-bar__close');
+  if (localStorage.getItem('popcornBarClosed') === '1' && bar) bar.remove();
+  close?.addEventListener('click', () => { localStorage.setItem('popcornBarClosed','1'); bar.remove(); });
+
+  async function initPopcorn(){
+    const t = document.querySelector('.pcn-thermo');
+    const c = document.querySelector('.pcn-countdown');
+    let data = {};
+    try{ data = await fetch('/popcorn.json').then(r=>r.json()); }catch(err){}
+    if (t){
+      if (data.goal) t.dataset.goal = data.goal;
+      if (data.raised) t.dataset.raised = data.raised;
+      const goal = +t.dataset.goal||0, raised = +t.dataset.raised||0;
+      const pct = Math.min(100, Math.round((raised/goal)*100||0));
+      t.querySelector('.pcn-thermo__fill').style.width = pct+'%';
+      t.querySelector('.pcn-thermo__label').textContent = `Raised $${raised.toLocaleString()} of $${goal.toLocaleString()} (${pct}%)`;
+    }
+    if (c){
+      if (data.deadline) c.dataset.deadline = data.deadline;
+      const dl = new Date(c.dataset.deadline);
+      document.querySelector('[data-deadline-label]')?.textContent = dl.toLocaleDateString();
+      const out = c.querySelector('.pcn-countdown__time');
+      const tick = ()=>{
+        const now = new Date(); let s = Math.max(0, Math.floor((dl-now)/1000));
+        const d = Math.floor(s/86400); s%=86400; const h=Math.floor(s/3600); s%=3600; const m=Math.floor(s/60); s%=60;
+        out.textContent = `${d}d ${h}h ${m}m ${s}s`;
+      };
+      tick(); setInterval(tick,1000);
+    }
+
+    const confetti = (x,y)=>{
+      const cv=document.getElementById('popcorn-confetti'); if(!cv) return;
+      const ctx=cv.getContext('2d'); const W=cv.width=cv.offsetWidth, H=cv.height=cv.offsetHeight;
+      const parts=Array.from({length:120},()=>({x:x*W,y:y*H,vx:(Math.random()-.5)*6,vy:(Math.random()*-6-2),g:.18,sz:2+Math.random()*3,ttl:60+Math.random()*30}));
+      const colors=['#FCD116','#ffd54d','#003F87','#ffffff']; let f=0;
+      (function anim(){
+        ctx.clearRect(0,0,W,H); f++;
+        parts.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.ttl--;ctx.fillStyle=colors[(p.sz|0)%colors.length];ctx.fillRect(p.x,p.y,p.sz,p.sz);});
+        if(f<110) requestAnimationFrame(anim);
+      })();
+    };
+    document.querySelectorAll('.popcorn-cta a').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const r=e.currentTarget.getBoundingClientRect();
+        const x=(r.left+r.width/2)/window.innerWidth;
+        const y=(r.top+r.height/2)/window.innerHeight;
+        confetti(x,y);
+      });
+    });
+  }
+  initPopcorn();
+
+  // Smooth scroll or redirect for #popcorn links
+  document.querySelectorAll('a[href="#popcorn"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const target=document.querySelector('#popcorn');
+      if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+      else { a.setAttribute('href','/#popcorn'); }
+    });
+  });
+})();
+
