@@ -256,7 +256,8 @@ function initNav(){
     if (c){
       if (data.deadline) c.dataset.deadline = data.deadline;
       const dl = new Date(c.dataset.deadline);
-      document.querySelector('[data-deadline-label]')?.textContent = dl.toLocaleDateString();
+      const labelEl = document.querySelector('[data-deadline-label]');
+      if (labelEl) labelEl.textContent = dl.toLocaleDateString();
       const out = c.querySelector('.pcn-countdown__time');
       const tick = ()=>{
         const now = new Date(); let s = Math.max(0, Math.floor((dl-now)/1000));
@@ -310,7 +311,7 @@ function initNav(){
     a.addEventListener('click',e=>{
       const target=document.querySelector('#popcorn');
       if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
-      else { a.setAttribute('href','/#popcorn'); }
+      else { e.preventDefault(); window.location.href='/#popcorn'; }
     });
   });
 })();
