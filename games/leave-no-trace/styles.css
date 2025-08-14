@@ -2,7 +2,7 @@
 .game-header{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;padding:8px 12px;background:rgba(255,255,255,.95);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
 .game-header .back{font-weight:600}
 .game-header .title{margin:0;font-size:18px}
-.hero{display:flex;flex-direction:column;gap:12px}
+.hero-inner{display:flex;flex-direction:column;gap:12px}
 .controls{display:flex;gap:8px;flex-wrap:wrap}
 .hud{display:grid;gap:12px;margin:12px 0;grid-template-columns:1fr}
 .score{display:grid;gap:4px;padding:12px}
