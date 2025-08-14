@@ -102,6 +102,11 @@
   </style>
 </head>
 <body>
+  <div class="popcorn-bar" role="status" aria-live="polite">
+    <span>🍿 Popcorn Season is on! <strong>Order by <span data-deadline-label>Oct 12</span></strong></span>
+    <a href="#popcorn" class="popcorn-bar__btn">Buy Popcorn</a>
+    <button class="popcorn-bar__close" aria-label="Dismiss">×</button>
+  </div>
   <header>
     <div class="container nav">
       <a href="#top" class="logo">
@@ -116,6 +121,7 @@
         <a href="#dens">Dens</a>
         <a href="#events">Events</a>
         <a href="#photos">Photos</a>
+        <a href="/popcorn/">Popcorn</a>
         <a href="#join">Join</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -141,6 +147,7 @@
           <a class="item" href="#dens">Dens <span>›</span></a>
           <a class="item" href="#events">Events <span>›</span></a>
           <a class="item" href="#photos">Photos <span>›</span></a>
+          <a class="item" href="/popcorn/">Popcorn <span>›</span></a>
           <a class="item" href="#join">Join <span>›</span></a>
           <a class="item" href="#contact">Contact <span>›</span></a>
           <a class="btn btn-primary" href="https://beascout.scouting.org/" target="_blank" rel="noreferrer" style="text-decoration:none">Find Us on BeAScout ↗</a>
@@ -310,5 +317,6 @@
       if(src){ boxImg.setAttribute('src', src+'?w=1200&q=70'); box.classList.add('open'); }
     });
   </script>
+  <script src="js/script.js" defer></script>
 </body>
 </html>
