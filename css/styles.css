@@ -83,7 +83,15 @@ img{max-width:100%;display:block}
 
 /* Hero */
 .hero{position:relative;color:#fff}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--blue),var(--pale));z-index:0}
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background:url('/assets/popcorn_hero.png') no-repeat;
+  background-size:cover;
+  background-position:left center;
+  z-index:0;
+}
+@media (min-width: 640px){.hero-bg{background-position:center}}
 
 /* Anchor crest to the same max-width container */
 .hero-inner{
@@ -109,6 +117,7 @@ img{max-width:100%;display:block}
 
 .hero h1{font-size:40px;line-height:1.1;margin:0}
 .hero p{max-width:640px;margin:16px 0 0;color:rgba(255,255,255,.9);font-size:18px}
+.hero h1,.hero p{text-shadow:0 0 8px rgba(0,0,0,.6)}
 .hero .actions{display:flex;flex-direction:column;gap:10px;margin-top:24px}
 @media (min-width: 640px){.hero .actions{flex-direction:row}}
 @media (min-width: 768px){.hero h1{font-size:64px}}
