@@ -19,6 +19,11 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <div class="popcorn-bar" role="status" aria-live="polite">
+    <span>🍿 Popcorn Season is on! <strong>Order by <span data-deadline-label>Oct 12</span></strong></span>
+    <a href="#popcorn" class="popcorn-bar__btn">Buy Popcorn</a>
+    <button class="popcorn-bar__close" aria-label="Dismiss">×</button>
+  </div>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div id="siteHeader"></div>
@@ -39,6 +44,35 @@
         </div>
         <div class="crest"><img src="/assets/cub-scout-crest.svg" alt="" onerror="this.style.display='none'"/></div>
       </div>
+    </section>
+
+    <!-- Popcorn Hero -->
+    <section id="popcorn" class="popcorn-hero container">
+      <div class="popcorn-hero__inner">
+        <h2>Popcorn = Adventures for Pack 3735</h2>
+        <p>Every bag funds campouts, Pinewood Derby kits, scholarships, and gear. Thank you for supporting Scouting in Ripon! 🙌</p>
+        <div class="popcorn-cta">
+          <a class="btn-buy" href="#" target="_blank" rel="noopener">Buy Popcorn</a>
+          <a class="btn-donate" href="#" target="_blank" rel="noopener">Donate to the Pack</a>
+          <a class="btn-vol" href="#" target="_blank" rel="noopener">Volunteer a Storefront Shift</a>
+        </div>
+        <div class="popcorn-widgets">
+          <div class="pcn-thermo" data-goal="6000" data-raised="2450" aria-label="Fundraising progress">
+            <div class="pcn-thermo__fill"></div>
+            <div class="pcn-thermo__label" aria-live="polite"></div>
+          </div>
+          <div class="pcn-countdown" data-deadline="2025-10-12T23:59:59-05:00" aria-label="Countdown to order deadline">
+            <div class="pcn-countdown__time">--d --h --m --s</div>
+            <small>until order deadline</small>
+          </div>
+        </div>
+        <ul class="popcorn-points">
+          <li>Local impact: stays with Pack 3735.</li>
+          <li>Secure online orders + in-person “wagon” sales.</li>
+          <li>First names only & photo-opt-in to protect youth privacy.</li>
+        </ul>
+      </div>
+      <canvas id="popcorn-confetti" width="10" height="10" aria-hidden="true"></canvas>
     </section>
 
     <!-- About -->
