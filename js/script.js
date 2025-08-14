@@ -226,6 +226,7 @@ function initNav(){
 (()=> {
   // Sticky announcement bar
   const bar = document.querySelector('.popcorn-bar');
+
   const close = bar?.querySelector('.popcorn-bar__close');
   const root = document.documentElement;
   if (localStorage.getItem('popcornBarClosed') === '1' && bar) {
@@ -264,7 +265,6 @@ function initNav(){
       };
       tick(); setInterval(tick,1000);
     }
-
       const confetti = (x,y)=>{
         const cv = document.getElementById('popcorn-confetti');
         if(!cv) return;
