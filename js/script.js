@@ -316,3 +316,35 @@ function initNav(){
   });
 })();
 
+/* -------- Simple polls (local only) -------- */
+(()=>{
+  const polls=document.querySelectorAll('[data-poll]');
+  polls.forEach(poll=>{
+    const id=poll.dataset.poll;
+    const LS_KEY=`poll_${id}`;
+    let counts={};
+    try{counts=JSON.parse(localStorage.getItem(LS_KEY)||'{}');}catch(err){counts={};}
+    const buttons=poll.querySelectorAll('button[data-choice]');
+    const results=poll.nextElementSibling && poll.nextElementSibling.classList.contains('poll-results') ? poll.nextElementSibling : null;
+    function render(){
+      if(!results) return;
+      results.innerHTML='';
+      buttons.forEach(btn=>{
+        const c=btn.dataset.choice;
+        const li=document.createElement('li');
+        li.textContent=`${btn.textContent}: ${counts[c]||0}`;
+        results.appendChild(li);
+      });
+    }
+    render();
+    poll.addEventListener('click',e=>{
+      const btn=e.target.closest('button[data-choice]');
+      if(!btn) return;
+      const c=btn.dataset.choice;
+      counts[c]=(counts[c]||0)+1;
+      localStorage.setItem(LS_KEY,JSON.stringify(counts));
+      render();
+    });
+  });
+})();
+
