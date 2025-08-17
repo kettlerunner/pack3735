@@ -26,89 +26,317 @@
 
   <div id="siteHeader"></div>
 
-  <main id="main">
-    <section class="hero">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="container hero-inner">
-        <h1>Road America Campout 2025</h1>
-        <p>Racing, camping, and a weekend of pack fun.</p>
+  <main id="ra2025">
+    <span id="main" tabindex="-1"></span>
+    <style>
+      :root {
+        --blue:#003F87; --gold:#FCD116; --pale:#9AB3D5;
+        --ink:#0b0b0b; --ink-2:#4b5563; --border:#e5e7eb; --bg:#ffffff;
+      }
+      #ra2025{font-size:16px;line-height:1.6;color:var(--ink);background:var(--bg);}
+      #ra2025 h1{font-size:2.25rem;margin:0 0 1rem;}
+      #ra2025 h2{font-size:1.5rem;margin:0 0 1.5rem;text-align:center;}
+      #ra2025 h3{font-size:1.25rem;margin:0 0 .5rem;}
+      #ra2025 section{padding:3rem 1rem;}
+      #ra2025 .hero{padding:6rem 1rem 5rem;text-align:center;color:#fff;position:relative;overflow:hidden;}
+      #ra2025 .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--blue),#002760);z-index:0;}
+      #ra2025 .hero .confetti{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cg fill='%23FCD116' fill-opacity='0.3'%3E%3Cg%3E%3Ccircle cx='6' cy='6' r='4'/%3E%3Ccircle cx='12' cy='6' r='4'/%3E%3Ccircle cx='9' cy='10' r='4'/%3E%3C/g%3E%3Cg transform='translate(20 20)'%3E%3Ccircle cx='6' cy='6' r='4'/%3E%3Ccircle cx='12' cy='6' r='4'/%3E%3Ccircle cx='9' cy='10' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");background-size:80px 80px;background-repeat:repeat;opacity:.25;z-index:1;}
+      #ra2025 .hero::after{content:'';position:absolute;inset:-50%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.05;animation:ra2025-grain 1s steps(2) infinite;z-index:2;}
+      @keyframes ra2025-grain{to{transform:translate(-20%,-20%);}}
+      #ra2025 .hero > *{position:relative;z-index:3;}
+      #ra2025 .overline{font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.5rem;}
+      #ra2025 .subhead{font-size:1.25rem;margin:0 auto 1.5rem;max-width:40ch;}
+      #ra2025 .cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;}
+      #ra2025 .meta{font-size:.875rem;margin-top:1rem;}
+      #ra2025 .chips{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:1rem;}
+      #ra2025 .chip{background:rgba(255,255,255,.2);padding:.25rem .75rem;border-radius:1rem;font-size:.875rem;}
+      #ra2025 .hero-footnote{font-size:.75rem;margin-top:2rem;opacity:.85;}
+
+      #ra2025 .glance .cards{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));}
+      #ra2025 .glance .card{padding:1.5rem;border-radius:1rem;box-shadow:0 2px 4px rgba(0,0,0,.05);background:#fff;}
+      #ra2025 .glance svg{width:32px;height:32px;fill:var(--blue);margin-bottom:.5rem;}
+
+      #ra2025 .story{display:grid;gap:2rem;align-items:center;}
+      @media(min-width:768px){#ra2025 .story{grid-template-columns:1fr 1fr;}}
+      #ra2025 .story figure{margin:0;}
+      #ra2025 .story img{border-radius:1rem;box-shadow:0 4px 10px rgba(0,0,0,.1);}
+      #ra2025 .story figcaption{font-size:.875rem;color:var(--ink-2);margin-top:.5rem;}
+
+      #ra2025 .timeline{position:relative;padding-left:2rem;margin-top:2rem;}
+      #ra2025 .timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--border);}
+      #ra2025 .timeline li{list-style:none;margin:2rem 0;position:relative;opacity:0;transform:translateY(20px);transition:all .4s ease;}
+      #ra2025 .timeline li.visible{opacity:1;transform:none;}
+      #ra2025 .timeline li::before{content:'';position:absolute;left:-16px;top:0;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--bg);}
+      #ra2025 .timeline h3{margin:0 0 .25rem;font-size:1rem;}
+      #ra2025 .timeline p{margin:0;font-size:.95rem;color:var(--ink-2);}
+
+      #ra2025 .numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:2rem;text-align:center;margin-top:2rem;}
+      #ra2025 .numbers .num{font-size:2.5rem;font-weight:700;color:var(--blue);}
+      #ra2025 .numbers span{display:block;margin-top:.5rem;color:var(--ink-2);}
+
+      #ra2025 .gallery .grid{column-count:2;column-gap:.5rem;margin-top:2rem;}
+      @media(min-width:640px){#ra2025 .gallery .grid{column-count:3;}}
+      #ra2025 .gallery a{display:block;margin:0 0 .5rem;border-radius:1rem;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.1);}
+      #ra2025 .gallery img{width:100%;height:auto;display:block;}
+
+      #ra2025 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:100;}
+      #ra2025 .lightbox.open{display:flex;}
+      #ra2025 .lightbox img{max-width:90vw;max-height:90vh;border-radius:1rem;}
+      #ra2025 .lightbox button{position:absolute;top:16px;right:16px;width:40px;height:40px;border:none;border-radius:50%;background:#fff;cursor:pointer;}
+
+      #ra2025 .why .cols{display:grid;gap:1.5rem;margin-top:2rem;}
+      @media(min-width:640px){#ra2025 .why .cols{grid-template-columns:repeat(3,1fr);}}
+      #ra2025 .why article{padding:1.5rem;text-align:center;border-radius:1rem;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.05);}
+      #ra2025 .why svg{width:40px;height:40px;fill:var(--blue);margin-bottom:.75rem;}
+      #ra2025 .cta-banner{margin-top:3rem;padding:2rem;border-radius:1rem;background:var(--pale);text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.05);}
+      #ra2025 .cta-banner p{margin:0 0 1rem;font-weight:600;font-size:1.25rem;}
+
+      #ra2025 .faq{margin-top:3rem;}
+      #ra2025 .faq-item{border:1px solid var(--border);border-radius:1rem;margin-bottom:1rem;}
+      #ra2025 .faq-question{width:100%;text-align:left;background:none;border:none;padding:1rem 1.25rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+      #ra2025 .faq-answer{display:none;padding:0 1.25rem 1rem 1.25rem;color:var(--ink-2);}
+      #ra2025 .faq-item.open .faq-answer{display:block;}
+      #ra2025 .faq-question::after{content:'+';}
+      #ra2025 .faq-item.open .faq-question::after{content:'–';}
+
+      @media(prefers-reduced-motion:reduce){
+        #ra2025 .timeline li{opacity:1;transform:none;}
+        #ra2025 .hero::after{animation:none;}
+      }
+    </style>
+
+    <!-- Hero -->
+    <section class="hero" aria-label="Road America Campout">
+      <div class="confetti" aria-hidden="true"></div>
+      <p class="overline">Road America • Elkhart Lake, WI</p>
+      <h1>Road America Campout 2025</h1>
+      <p class="subhead">GT racing, camping, and Scout spirit—one unforgettable weekend.</p>
+      <div class="cta">
+        <a href="#highlights" class="btn btn-outline">See Highlights</a>
+        <a href="/join" class="btn btn-primary">Join Now</a>
+      </div>
+      <p class="meta">Aug 15–17, 2025 • GT World Challenge America + Scout Weekend</p>
+      <div class="chips" aria-label="Activities">
+        <span class="chip">Parade Laps</span>
+        <span class="chip">Paddock Access</span>
+        <span class="chip">Movie Night</span>
+        <span class="chip">Track Hike</span>
+      </div>
+      <p class="hero-footnote">Dates: Aug 15–17, 2025 • Fanatec GT World Challenge America weekend • Scout Weekend camping, paddock &amp; grid access included.</p>
+    </section>
+
+    <!-- Weekend at a Glance -->
+    <section id="highlights" class="glance">
+      <h2>Weekend at a Glance</h2>
+      <div class="cards">
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h2l1-3h12l1 3h2l-2-6H5l-2 6zm3 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
+          <h3>Parade Laps (Thu)</h3>
+          <p>We kicked things off riding in the Thursday parade through the 4-mile circuit.</p>
+        </article>
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l4 8H8l4-8zm0 20c-4.418 0-8-3.582-8-8h2a6 6 0 1 0 12 0h2c0 4.418-3.582 8-8 8z"/></svg>
+          <h3>Track Hike &amp; Run (Fri)</h3>
+          <p>Scouts got on track for an evening lap—nothing beats cresting the Kink on foot.</p>
+        </article>
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v2H4zm2 4h12v12H6z"/></svg>
+          <h3>Paddock &amp; Grid Access</h3>
+          <p>Up-close with teams and cars thanks to Scout Weekend credentials.</p>
+        </article>
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M8 16h8v1H8z" fill="var(--gold)"/></svg>
+          <h3>Movie Night @ Turn 8 (Sat)</h3>
+          <p>Blankets, popcorn, and race cars in the background—perfect.</p>
+        </article>
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <h3>GT Racing All Weekend</h3>
+          <p>Fanatec GT World Challenge America + GT America, GT4, TC, GR Cup, and McLaren Trophy.</p>
+        </article>
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-7.5L2 10h7z"/></svg>
+          <h3>Big Group Photo (Sun)</h3>
+          <p>One last cheer, one big picture, then we packed up and headed out.</p>
+        </article>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <h2>Weekend Highlights</h2>
-        <p class="kicker">Road America's Scout Weekend gave us trackside camping and special activities.</p>
-        <ul>
-          <li>Joined the Thursday parade of cars through the circuit.</li>
-          <li>Hiked and ran a lap of the four-mile track Friday evening.</li>
-          <li>Watched a movie under the stars at Turn&nbsp;8 on Saturday.</li>
-          <li>Snapped a big group photo Sunday before packing up.</li>
-          <li>Cheered on GT racers all weekend long.</li>
-        </ul>
+    <!-- Story -->
+    <section class="story">
+      <div>
+        <h2>One Weekend, Many Memories</h2>
+        <p>Between amazing access and some serious Midwest weather, this was a weekend our Scouts will never forget. We threaded storms, shared snacks, met drivers, and learned sportsmanship the best way—trackside. The camping, the movie night at Turn 8, and the roar of GT cars created a perfect backdrop for new friendships.</p>
       </div>
+      <figure>
+        <img src="/images/road-america/kk-paddock.jpg" alt="Scouts in the paddock by GT cars" loading="lazy" />
+        <figcaption>Scout Weekend includes paddock &amp; pre-race grid access.</figcaption>
+      </figure>
     </section>
 
-    <section>
-      <div class="container">
-        <h2>Weekend Snapshots</h2>
-        <div class="masonry">
-          <article class="tile" data-tags="campout" data-id="ra1">
-            <figure class="media">
-              <img src="assets/road-america-group.jpg" data-full="assets/road-america-group.jpg" alt="Pack 3735 posing on the start line" loading="lazy" decoding="async" />
-            </figure>
-            <div class="bar">
-              <div class="meta">
-                <span class="pill">Campout</span>
-                <span class="muted small">Sunday group photo</span>
-              </div>
-            </div>
-          </article>
+    <!-- Timeline -->
+    <section class="timeline-wrap">
+      <h2>Timeline</h2>
+      <ul class="timeline">
+        <li>
+          <h3>Friday</h3>
+          <p>Camp setup • Track hike/run • Paddock visit</p>
+        </li>
+        <li>
+          <h3>Saturday</h3>
+          <p>Morning races • Driver autographs • Movie night at Turn 8</p>
+        </li>
+        <li>
+          <h3>Sunday</h3>
+          <p>Races &amp; big group photo • Pack-up</p>
+        </li>
+      </ul>
+    </section>
 
-          <article class="tile" data-tags="campout" data-id="ra2">
-            <figure class="media">
-              <img src="assets/road-america-hans.jpg" data-full="assets/road-america-hans.jpg" alt="Scout checking out a car in the paddock" loading="lazy" decoding="async" />
-            </figure>
-            <div class="bar">
-              <div class="meta">
-                <span class="pill">Campout</span>
-                <span class="muted small">Parade car close-up</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tile" data-tags="campout" data-id="ra3">
-            <figure class="media">
-              <img src="assets/road-america-racefan.jpg" data-full="assets/road-america-racefan.jpg" alt="Scout cheering during GT racing" loading="lazy" decoding="async" />
-            </figure>
-            <div class="bar">
-              <div class="meta">
-                <span class="pill">Campout</span>
-                <span class="muted small">GT circuit thrills</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="tile" data-tags="campout" data-id="ra4">
-            <figure class="media">
-              <img src="assets/road-america-raccoon.jpg" data-full="assets/road-america-raccoon.jpg" alt="A raccoon wandering near camp" loading="lazy" decoding="async" />
-            </figure>
-            <div class="bar">
-              <div class="meta">
-                <span class="pill">Campout</span>
-                <span class="muted small">Campground visitor</span>
-              </div>
-            </div>
-          </article>
+    <!-- Numbers -->
+    <section class="numbers-wrap">
+      <h2>By the Numbers</h2>
+      <div class="numbers">
+        <div>
+          <div class="num">4</div>
+          <span>Miles of track we explored</span>
+        </div>
+        <div>
+          <div class="num">6+</div>
+          <span>Pro racing series in action</span>
+        </div>
+        <div>
+          <div class="num">200+</div>
+          <span>Scouts &amp; families on property</span>
+        </div>
+        <div>
+          <div class="num">2</div>
+          <span>Storm fronts we outsmarted</span>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <p>Road America opens its gates to Scouts each summer for camping in the Carousel, parade laps, and more. Official dates and registration details for the next Road America Scout Campout are posted on the <a href="https://www.roadamerica.com/scout-weekend-road-america" target="_blank" rel="noopener">Road America site</a>.</p>
+    <!-- Gallery -->
+    <section class="gallery">
+      <h2>Gallery</h2>
+      <nav aria-label="Gallery">
+        <div class="grid">
+          <a href="/images/road-america/parade.jpg"><img src="/images/road-america/parade.jpg" alt="Scouts riding in parade laps" loading="lazy" /></a>
+          <a href="/images/road-america/turn8-movie.jpg"><img src="/images/road-america/turn8-movie.jpg" alt="Families watching a movie at Turn 8" loading="lazy" /></a>
+          <a href="/images/road-america/paddock-helmet.jpg"><img src="/images/road-america/paddock-helmet.jpg" alt="Scout trying on a racing helmet in the paddock" loading="lazy" /></a>
+          <a href="/images/road-america/kids-fence.jpg"><img src="/images/road-america/kids-fence.jpg" alt="Scouts lining the fence to watch GT cars" loading="lazy" /></a>
+          <a href="/images/road-america/camping.jpg"><img src="/images/road-america/camping.jpg" alt="Tents set up in the trackside campground" loading="lazy" /></a>
+          <a href="/images/road-america/start-finish.jpg"><img src="/images/road-america/start-finish.jpg" alt="Cars launching from the start-finish line" loading="lazy" /></a>
+          <a href="/images/road-america/grid-autograph.jpg"><img src="/images/road-america/grid-autograph.jpg" alt="Drivers signing autographs on the pre-race grid" loading="lazy" /></a>
+          <a href="/images/road-america/storm-sky.jpg"><img src="/images/road-america/storm-sky.jpg" alt="Dark storm clouds clearing over the campsite" loading="lazy" /></a>
+        </div>
+      </nav>
+      <div class="lightbox" id="ra2025-lightbox" hidden>
+        <button class="close" aria-label="Close"></button>
+        <img src="" alt="" />
       </div>
     </section>
+
+    <!-- Why Scouting -->
+    <section class="why">
+      <h2>Why Scouting?</h2>
+      <div class="cols">
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l6 6-6 6-6-6z"/><path d="M6 14l6 6 6-6" opacity=".5"/></svg>
+          <h3>Confidence Through Adventure</h3>
+          <p>From camping to public speaking at pack meetings.</p>
+        </article>
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0zm8-5v10M9 9h6" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"/></svg>
+          <h3>Community &amp; Character</h3>
+          <p>The Scout Law in action, even when storms roll in.</p>
+        </article>
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v4H4zm2 6h12v10H6z"/></svg>
+          <h3>Skills for Life</h3>
+          <p>Outdoor know-how, leadership, and service projects.</p>
+        </article>
+      </div>
+      <div class="cta-banner">
+        <p>Hear the engines, find your pack.</p>
+        <a href="/join" class="btn btn-primary">Join Pack 3735</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+      <h2>FAQ</h2>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">Who can attend Scout Weekend?</button>
+        <div class="faq-answer">
+          <p>Registered Scouts and families; siblings welcome.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">Where do we camp?</button>
+        <div class="faq-answer">
+          <p>On-site camping areas designated for Scouts; check your pack email for the map.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">Is the paddock really open to Scouts?</button>
+        <div class="faq-answer">
+          <p>Yes—Scout Weekend credentials include paddock &amp; pre-race grid access.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">First-timer tips?</button>
+        <div class="faq-answer">
+          <p>Bring ear protection, layers, and a small daypack. Hydrate.</p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      (function(){
+        const root=document.getElementById('ra2025');
+        const prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(!prefersReduced){
+          const items=root.querySelectorAll('.timeline li');
+          const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.3});
+          items.forEach(i=>io.observe(i));
+        }else{
+          root.querySelectorAll('.timeline li').forEach(i=>i.classList.add('visible'));
+        }
+        const lb=root.querySelector('#ra2025-lightbox');
+        const lbImg=lb.querySelector('img');
+        const lbClose=lb.querySelector('.close');
+        let lastFocus;
+        root.querySelectorAll('.gallery a').forEach(link=>{
+          link.addEventListener('click',e=>{
+            e.preventDefault();
+            lastFocus=document.activeElement;
+            lbImg.src=link.href;
+            lbImg.alt=link.querySelector('img').alt;
+            lb.hidden=false;
+            lb.classList.add('open');
+            lbClose.focus();
+          });
+        });
+        function closeLb(){
+          lb.classList.remove('open');
+          lb.hidden=true;
+          lbImg.src='';
+          if(lastFocus)lastFocus.focus();
+        }
+        lbClose.addEventListener('click',closeLb);
+        lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
+        lb.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();if(e.key==='Tab'){e.preventDefault();lbClose.focus();}});
+        root.querySelectorAll('.faq-question').forEach(btn=>{
+          btn.addEventListener('click',()=>{
+            const item=btn.parentElement;
+            const expanded=btn.getAttribute('aria-expanded')==='true';
+            btn.setAttribute('aria-expanded',!expanded);
+            item.classList.toggle('open');
+          });
+        });
+      })();
+    </script>
   </main>
 
   <footer>
