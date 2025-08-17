@@ -30,6 +30,10 @@ img{max-width:100%;display:block}
 .padded{padding:24px;border-radius:24px}
 .alt{background:#f8fafc}
 
+/* Poll */
+.poll{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+.poll-results{list-style:none;margin:12px 0 0;padding:0}
+
 /* Focus visibility */
 :focus{outline:none}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
