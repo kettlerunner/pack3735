@@ -295,6 +295,7 @@ footer{border-top:1px solid var(--border)}
 .pcn-countdown{display:grid;place-items:center;border:1px dashed #e5e7eb;border-radius:.8rem;padding:.7rem}
 .pcn-countdown__time{font-feature-settings:"tnum" 1;font-variant-numeric:tabular-nums;font-weight:800;font-size:1.2rem}
 .popcorn-points{display:grid;gap:.35rem;margin:1rem 0 0;padding-left:1rem}
+#faq a,.popcorn-points a{color:var(--blue);font-weight:700;text-decoration:underline}
 #popcorn-confetti{position:absolute;inset:0;pointer-events:none}
 
 /* Subtle popcorn kernels drifting */
