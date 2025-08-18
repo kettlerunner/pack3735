@@ -28,43 +28,28 @@ jobs:
       - name: Generate sitemap.xml and update robots.txt
         run: |
           python - <<'PY'
-          import os, sys, time, pathlib, xml.etree.ElementTree as ET
+          import os, sys, pathlib, xml.etree.ElementTree as ET
           from datetime import datetime, timezone
-
           BASE_URL = os.environ.get("BASE_URL","").rstrip("/")
           if not BASE_URL:
-            print("BASE_URL env is required"); sys.exit(1)
-
+              print("BASE_URL env is required"); sys.exit(1)
           exclude_dirs = {'.git', '.github', 'node_modules', 'img', 'images', 'css', 'js', 'assets', 'static', 'scripts'}
           urls = []
-
           root_dir = pathlib.Path(".").resolve()
-
           for dirpath, dirnames, filenames in os.walk(root_dir):
-              # prune excluded dirs
               dirnames[:] = [d for d in dirnames if d not in exclude_dirs]
               for f in filenames:
                   if not f.lower().endswith(".html"):
                       continue
                   full = pathlib.Path(dirpath) / f
                   rel = full.relative_to(root_dir).as_posix()
-
-                  # map file path -> URL path
                   if f == "index.html":
                       parent = pathlib.Path(rel).parent.as_posix()
                       url_path = "/" if parent in (".","") else f"/{parent}/"
                   else:
                       url_path = f"/{rel}"
-
-                  # last modified (UTC)
                   mtime = datetime.fromtimestamp(full.stat().st_mtime, tz=timezone.utc).date().isoformat()
-
-                  urls.append({
-                      "loc": f"{BASE_URL}{url_path}",
-                      "lastmod": mtime
-                  })
-
-          # Build XML
+                  urls.append({"loc": f"{BASE_URL}{url_path}", "lastmod": mtime})
           ns = "http://www.sitemaps.org/schemas/sitemap/0.9"
           ET.register_namespace('', ns)
           urlset = ET.Element(ET.QName(ns, "urlset"))
@@ -72,24 +57,18 @@ jobs:
               url_el = ET.SubElement(urlset, ET.QName(ns, "url"))
               ET.SubElement(url_el, ET.QName(ns, "loc")).text = u["loc"]
               ET.SubElement(url_el, ET.QName(ns, "lastmod")).text = u["lastmod"]
-              # Optional hints (safe defaults)
               ET.SubElement(url_el, ET.QName(ns, "changefreq")).text = "weekly"
-
           ET.ElementTree(urlset).write("sitemap.xml", encoding="utf-8", xml_declaration=True)
-
-          # Ensure robots.txt advertises the sitemap
           robots_path = pathlib.Path("robots.txt")
           line = f"Sitemap: {BASE_URL}/sitemap.xml\n"
           if robots_path.exists():
               txt = robots_path.read_text(encoding="utf-8")
               if "Sitemap:" not in txt:
-                  if not txt.endswith("\n"):
-                      txt += "\n"
+                  if not txt.endswith("\n"): txt += "\n"
                   txt += line
                   robots_path.write_text(txt, encoding="utf-8")
           else:
               robots_path.write_text("User-agent: *\nAllow: /\n" + line, encoding="utf-8")
-
           print(f"Wrote sitemap.xml with {len(urls)} URLs.")
           PY
 
@@ -105,8 +84,40 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
+      # Safely populate known_hosts so host key verification passes
+      - name: Trust droplet host key
+        env:
+          SSH_PORT: ${{ secrets.SSH_PORT }}                  # optional
+          DEPLOY_HOST_KEY: ${{ secrets.DEPLOY_HOST_KEY }}    # optional (pinned key)
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          : > ~/.ssh/known_hosts
+          host="${DEPLOY_HOST}"
+          port="${SSH_PORT:-22}"
+          if [ -n "${DEPLOY_HOST_KEY:-}" ]; then
+            # Use pinned key if provided (most secure)
+            echo "$DEPLOY_HOST_KEY" >> ~/.ssh/known_hosts
+          else
+            # Otherwise fetch the current key (convenient for CI)
+            (ssh-keyscan -T 15 -H -p "$port" -4 "$host" 2>/dev/null || true
+             ssh-keyscan -T 15 -H -p "$port" -6 "$host" 2>/dev/null || true) \
+             | sort -u >> ~/.ssh/known_hosts
+          fi
+          chmod 644 ~/.ssh/known_hosts
+
+      # (Optional) quick connectivity check; safe to remove later
+      - name: SSH sanity check
+        env:
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          ssh -o BatchMode=yes -p "${SSH_PORT:-22}" "${DEPLOY_USER}@${DEPLOY_HOST}" "echo connected to: \$(hostname)"
+
       - name: Rsync to server
+        env:
+          SSH_PORT: ${{ secrets.SSH_PORT }}   # optional
         run: |
           rsync -az --delete \
+            -e "ssh -p ${SSH_PORT:-22}" \
             --exclude '.git' --exclude '.github' \
             ./ "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}"
