@@ -1,0 +1,109 @@
+name: Update sitemap & Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: https://pack3735.com
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Generate sitemap.xml and update robots.txt
+        run: |
+          python - <<'PY'
+          import os, sys, time, pathlib, xml.etree.ElementTree as ET
+          from datetime import datetime, timezone
+
+          BASE_URL = os.environ.get("BASE_URL","").rstrip("/")
+          if not BASE_URL:
+            print("BASE_URL env is required"); sys.exit(1)
+
+          exclude_dirs = {'.git', '.github', 'node_modules', 'img', 'images', 'css', 'js', 'assets', 'static', 'scripts'}
+          urls = []
+
+          root_dir = pathlib.Path(".").resolve()
+
+          for dirpath, dirnames, filenames in os.walk(root_dir):
+              # prune excluded dirs
+              dirnames[:] = [d for d in dirnames if d not in exclude_dirs]
+              for f in filenames:
+                  if not f.lower().endswith(".html"):
+                      continue
+                  full = pathlib.Path(dirpath) / f
+                  rel = full.relative_to(root_dir).as_posix()
+
+                  # map file path -> URL path
+                  if f == "index.html":
+                      parent = pathlib.Path(rel).parent.as_posix()
+                      url_path = "/" if parent in (".","") else f"/{parent}/"
+                  else:
+                      url_path = f"/{rel}"
+
+                  # last modified (UTC)
+                  mtime = datetime.fromtimestamp(full.stat().st_mtime, tz=timezone.utc).date().isoformat()
+
+                  urls.append({
+                      "loc": f"{BASE_URL}{url_path}",
+                      "lastmod": mtime
+                  })
+
+          # Build XML
+          ns = "http://www.sitemaps.org/schemas/sitemap/0.9"
+          ET.register_namespace('', ns)
+          urlset = ET.Element(ET.QName(ns, "urlset"))
+          for u in sorted(urls, key=lambda x: x["loc"]):
+              url_el = ET.SubElement(urlset, ET.QName(ns, "url"))
+              ET.SubElement(url_el, ET.QName(ns, "loc")).text = u["loc"]
+              ET.SubElement(url_el, ET.QName(ns, "lastmod")).text = u["lastmod"]
+              # Optional hints (safe defaults)
+              ET.SubElement(url_el, ET.QName(ns, "changefreq")).text = "weekly"
+
+          ET.ElementTree(urlset).write("sitemap.xml", encoding="utf-8", xml_declaration=True)
+
+          # Ensure robots.txt advertises the sitemap
+          robots_path = pathlib.Path("robots.txt")
+          line = f"Sitemap: {BASE_URL}/sitemap.xml\n"
+          if robots_path.exists():
+              txt = robots_path.read_text(encoding="utf-8")
+              if "Sitemap:" not in txt:
+                  if not txt.endswith("\n"):
+                      txt += "\n"
+                  txt += line
+                  robots_path.write_text(txt, encoding="utf-8")
+          else:
+              robots_path.write_text("User-agent: *\nAllow: /\n" + line, encoding="utf-8")
+
+          print(f"Wrote sitemap.xml with {len(urls)} URLs.")
+          PY
+
+      - name: Commit sitemap (if changed)
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update sitemap.xml & robots.txt (CI)"
+          file_pattern: "sitemap.xml robots.txt"
+
+      # Deploy to your droplet via rsync+SSH
+      - name: Load SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Rsync to server
+        run: |
+          rsync -az --delete \
+            --exclude '.git' --exclude '.github' \
+            ./ "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}"
