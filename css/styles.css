@@ -302,3 +302,9 @@ footer{border-top:1px solid var(--border)}
 .popcorn-hero::before{top:-20px;left:10%}
 .popcorn-hero::after{top:-20px;right:15%;animation-duration:15s}
 @keyframes pcn-drift{0%{transform:translateY(0) rotate(0deg)}100%{transform:translateY(120px) rotate(360deg)}}
+
+/* Road America teaser */
+#road-america .ra-teaser{display:grid;gap:1rem;padding:1rem;}
+#road-america .ra-thumb img{border-radius:12px;}
+#road-america .info{display:flex;flex-direction:column;gap:.5rem;}
+@media(min-width:640px){#road-america .ra-teaser{grid-template-columns:1fr 1fr;align-items:center;}}

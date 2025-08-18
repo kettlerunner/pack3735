@@ -316,6 +316,33 @@ function initNav(){
   });
 })();
 
+// Road America teaser lightbox
+(()=>{
+  const section=document.getElementById('road-america');
+  const thumb=section?.querySelector('.ra-thumb');
+  const lb=document.getElementById('ra-lightbox');
+  if(!section||!thumb||!lb) return;
+  const lbImg=lb.querySelector('img');
+  const btnClose=lb.querySelector('.close');
+  const bg=lb.querySelector('.bg');
+  const close=()=>{
+    lb.classList.remove('open');
+    lb.setAttribute('hidden','');
+    lbImg.removeAttribute('src');
+    thumb.focus();
+  };
+  thumb.addEventListener('click',e=>{
+    e.preventDefault();
+    lbImg.src=thumb.href;
+    lb.removeAttribute('hidden');
+    lb.classList.add('open');
+    btnClose.focus();
+  });
+  btnClose.addEventListener('click',close);
+  bg.addEventListener('click',close);
+  lb.addEventListener('keydown',e=>{if(e.key==='Escape') close();});
+})();
+
 /* -------- Simple polls (local only) -------- */
 (()=>{
   const polls=document.querySelectorAll('[data-poll]');
