@@ -15,7 +15,10 @@
   <meta name="twitter:title" content="Road America Scout Weekend 2025 - Pack 3735 (Elkhart Lake, WI)" />
   <meta name="twitter:description" content="Aug 15–17, 2025 highlights: parade to Siebkens, paddock & grid access, movie night at Turn 8, and GT racing all weekend." />
   <meta name="twitter:image" content="/assets/cu-bs-logo.webp" />
-  <link rel="icon" href="/assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="css/styles.css" />
   <script type="application/ld+json">
   {
@@ -30,8 +33,8 @@
 </head>
 <body>
   <div class="popcorn-bar" role="status" aria-live="polite">
-    <span>🍿 Popcorn Season is on! <strong>Order by <span data-deadline-label>Oct 12</span></strong></span>
-    <a href="#popcorn" class="popcorn-bar__btn">Buy Popcorn</a>
+    <span>🍿 Popcorn Season is on! <strong>Order online by <span data-deadline-label>Oct 12</span></strong></span>
+    <a href="https://www.prpopcornstore.com/?sid=28H0DK" class="popcorn-bar__btn" target="_blank" rel="noopener">Order Online</a>
     <button class="popcorn-bar__close" aria-label="Dismiss">×</button>
   </div>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -152,7 +155,9 @@
         <p>Between amazing access and some serious Midwest weather, this was a weekend our Scouts will never forget. We threaded storms, shared snacks, met drivers, and learned sportsmanship the best way-trackside. The camping, the movie night at Turn 8, and the roar of GT cars created a perfect backdrop for new friendships.</p>
       </div>
       <figure>
-        <img src="img/road-america/road-america-group.jpg" alt="Pack 3735 group photo at Road America" loading="lazy" />
+        <a href="img/road-america/road-america-group.jpg" class="ra-thumb">
+          <img src="img/road-america/road-america-group.jpg" alt="Pack 3735 group photo at Road America" loading="lazy" />
+        </a>
         <figcaption>The Scouts gathered for a group photo during Scout Weekend.</figcaption>
       </figure>
     </section>
@@ -364,6 +369,13 @@
       </div>
     </div>
   </footer>
+  <div id="ra-lightbox" class="lb" hidden>
+    <div class="bg"></div>
+    <div class="stage">
+      <img alt="Pack 3735 group at Road America" loading="lazy" />
+      <button class="close" aria-label="Close">✕</button>
+    </div>
+  </div>
 
   <script src="js/script.js" defer></script>
   <script type="application/ld+json">
