@@ -1,39 +1,43 @@
 # Pack 3735 Website
 
-This repository contains the source for the **Cub Scout Pack 3735** website.  It is a simple, static site composed of HTML, CSS and JavaScript files with no server side component.
+This repo holds the source for the Cub Scout Pack 3735 site at https://pack3735.com. The site helps families learn about events, join the pack, and play simple games.
 
-## Project structure
+## What's inside
 
-- **index.html** – main landing page for the website.
-- **css/** – stylesheets used across the site.
-- **js/** – JavaScript that powers interactive elements.
-- **img/** – images and icons.
-- **assets/** – fonts and other static resources.
-- **partials/** – HTML snippets that are included on multiple pages.
-- **games/** – browser‑based learning games for scouts.
-- **pack_3735_flat_site_index.html** – standalone copy of the site for download or offline use.
+- `index.html` – home page
+- `about/` – who we are and what we do
+- `events/` – pack calendar and outings
+- `join/` – how to sign up
+- `games/` – small learning games
+- `popcorn/` – seasonal popcorn fundraiser pages
+- `partials/` – shared header, footer, and other snippets
+- `css/` and `js/` – styles and scripts
+- `assets/` – images and other files
 
-## Getting started
+## Preview locally
 
-Because the project is entirely static, it does not require any build step or runtime dependencies.  You can preview the site by opening `index.html` in your browser.
+The site is static. No build or dependencies.
 
-To serve the site locally you can use a simple HTTP server:
+1. Clone the repo.
+2. Run a tiny web server:
 
-```bash
+```
 python3 -m http.server
 ```
 
-Then visit [http://localhost:8000](http://localhost:8000) in your browser.
+3. Open http://localhost:8000 in your browser.
+4. You can also double-click `index.html` to open it directly.
 
 ## Contributing
 
-1. Fork and clone the repository.
-2. Create a feature branch for your changes.
-3. Make edits and verify that the site loads correctly in a browser.
-4. Run tests (if any) and ensure the linter or build steps pass.
-5. Commit and open a pull request.
+Pull requests are welcome.
 
-## Licensing
+1. Fork the repo and create a branch.
+2. Make changes using plain HTML, CSS, and JavaScript.
+3. Check pages in a browser for broken links and accessibility.
+4. Use Conventional Commits when you commit (example: `docs(readme): update guide`).
+5. Open a pull request.
 
-No explicit license file is provided.  Please contact the Pack 3735 leadership before reusing content.
+## License
 
+No license file is included. Ask Pack 3735 leaders before reusing content.
