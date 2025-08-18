@@ -53,9 +53,8 @@
       #ra2025 .chip{background:rgba(255,255,255,.2);padding:.25rem .75rem;border-radius:1rem;font-size:.875rem;}
       #ra2025 .hero-footnote{font-size:.75rem;margin-top:2rem;opacity:.85;}
 
-      #ra2025 .glance .cards{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));}
-      #ra2025 .glance .card{padding:1.5rem;border-radius:1rem;box-shadow:0 2px 4px rgba(0,0,0,.05);background:#fff;}
-      #ra2025 .glance svg{width:32px;height:32px;fill:var(--blue);margin-bottom:.5rem;}
+      #ra2025 .glance p{margin:0 0 1rem;}
+      #ra2025 .glance p:last-child{margin-bottom:0;}
 
       #ra2025 .story{display:grid;gap:2rem;align-items:center;}
       @media(min-width:768px){#ra2025 .story{grid-template-columns:1fr 1fr;}}
@@ -100,6 +99,10 @@
       #ra2025 .faq-question::after{content:'+';}
       #ra2025 .faq-item.open .faq-question::after{content:'–';}
 
+      @media (max-width:640px){
+        #ra2025 .faq-question{font-size:1.125rem;}
+        #ra2025 .faq-answer{font-size:1rem;}
+      }
       @media(prefers-reduced-motion:reduce){
         #ra2025 .timeline li{opacity:1;transform:none;}
         #ra2025 .hero::after{animation:none;}
@@ -129,38 +132,12 @@
     <!-- Weekend at a Glance -->
     <section id="highlights" class="glance">
       <h2>Weekend at a Glance</h2>
-      <div class="cards">
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h2l1-3h12l1 3h2l-2-6H5l-2 6zm3 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
-          <h3>Racecar Parade &amp; Welcome Party(Thu)</h3>
-          <p>The full SRO field paraded from the paddock into town for a streetside celebration at Siebkens. We met drivers, grabbed autographs, checked out the supercar display, and enjoyed live music.</p>
-        </article>
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l4 8H8l4-8zm0 20c-4.418 0-8-3.582-8-8h2a6 6 0 1 0 12 0h2c0 4.418-3.582 8-8 8z"/></svg>
-          <h3>Track Hike &amp; Run (Fri)</h3>
-          <p>Scouts got on track for an evening lap—nothing beats cresting the Kink on foot.</p>
-        </article>
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v2H4zm2 4h12v12H6z"/></svg>
-          <h3>Paddock &amp; Grid Access</h3>
-          <p>Up-close with teams and cars thanks to Scout Weekend credentials.</p>
-        </article>
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M8 16h8v1H8z" fill="var(--gold)"/></svg>
-          <h3>Movie Night @ Turn 8 (Sat)</h3>
-          <p>Blankets, popcorn, and race cars in the background—perfect.</p>
-        </article>
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-          <h3>GT Racing All Weekend</h3>
-          <p>Fanatec GT World Challenge America + GT America, GT4, TC, GR Cup, and McLaren Trophy.</p>
-        </article>
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-7.5L2 10h7z"/></svg>
-          <h3>Big Group Photo (Sun)</h3>
-          <p>One last cheer, one big picture, then we packed up and headed out.</p>
-        </article>
-      </div>
+      <p><strong>Racecar Parade &amp; Welcome Party (Thu)</strong> — The full SRO field paraded from the paddock into town for a streetside celebration at Siebkens. We met drivers, grabbed autographs, checked out the supercar display, and enjoyed live music.</p>
+      <p><strong>Track Hike &amp; Run (Fri)</strong> — Scouts got on track for an evening lap—nothing beats cresting the Kink on foot.</p>
+      <p><strong>Paddock &amp; Grid Access</strong> — Up-close with teams and cars thanks to Scout Weekend credentials.</p>
+      <p><strong>Movie Night @ Turn 8 (Sat)</strong> — Blankets, popcorn, and race cars in the background—perfect.</p>
+      <p><strong>GT Racing All Weekend</strong> — Fanatec GT World Challenge America + GT America, GT4, TC, GR Cup, and McLaren Trophy.</p>
+      <p><strong>Big Group Photo (Sun)</strong> — One last cheer, one big picture, then we packed up and headed out.</p>
     </section>
 
     <!-- Story -->
