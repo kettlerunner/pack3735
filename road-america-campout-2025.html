@@ -82,7 +82,11 @@
       #ra2025 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:100;}
       #ra2025 .lightbox.open{display:flex;}
       #ra2025 .lightbox img{max-width:90vw;max-height:90vh;width:auto;height:auto;border-radius:1rem;}
-      #ra2025 .lightbox button{position:absolute;top:16px;right:16px;width:40px;height:40px;border:none;border-radius:50%;background:#fff;cursor:pointer;}
+      #ra2025 .lightbox button{position:absolute;border:none;border-radius:50%;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+      #ra2025 .lightbox .close{top:16px;right:16px;width:40px;height:40px;font-size:1.5rem;}
+      #ra2025 .lightbox .prev,#ra2025 .lightbox .next{top:50%;width:48px;height:48px;font-size:2rem;background:rgba(255,255,255,.8);color:var(--ink);transform:translateY(-50%);}
+      #ra2025 .lightbox .prev{left:16px;}
+      #ra2025 .lightbox .next{right:16px;}
 
       #ra2025 .why .cols{display:grid;gap:1.5rem;margin-top:2rem;}
       @media(min-width:640px){#ra2025 .why .cols{grid-template-columns:repeat(3,1fr);}}
@@ -208,8 +212,10 @@
         </div>
       </nav>
       <div class="lightbox" id="ra2025-lightbox" hidden>
-        <button class="close" aria-label="Close"></button>
+        <button class="close" aria-label="Close">×</button>
+        <button class="prev" aria-label="Previous">‹</button>
         <img src="" alt="" />
+        <button class="next" aria-label="Next">›</button>
       </div>
     </section>
 
@@ -282,13 +288,22 @@
         const lb=root.querySelector('#ra2025-lightbox');
         const lbImg=lb.querySelector('img');
         const lbClose=lb.querySelector('.close');
+        const lbPrev=lb.querySelector('.prev');
+        const lbNext=lb.querySelector('.next');
         let lastFocus;
-        root.querySelectorAll('.gallery a').forEach(link=>{
+        const galleryLinks=[...root.querySelectorAll('.gallery a')];
+        let currentIndex=0;
+        function showImage(i){
+          currentIndex=(i+galleryLinks.length)%galleryLinks.length;
+          const link=galleryLinks[currentIndex];
+          lbImg.src=link.href;
+          lbImg.alt=link.querySelector('img').alt;
+        }
+        galleryLinks.forEach((link,i)=>{
           link.addEventListener('click',e=>{
             e.preventDefault();
             lastFocus=document.activeElement;
-            lbImg.src=link.href;
-            lbImg.alt=link.querySelector('img').alt;
+            showImage(i);
             lb.hidden=false;
             lb.classList.add('open');
             lbClose.focus();
@@ -301,8 +316,19 @@
           if(lastFocus)lastFocus.focus();
         }
         lbClose.addEventListener('click',closeLb);
+        lbPrev.addEventListener('click',()=>showImage(currentIndex-1));
+        lbNext.addEventListener('click',()=>showImage(currentIndex+1));
         lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
-        lb.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();if(e.key==='Tab'){e.preventDefault();lbClose.focus();}});
+        let startX;
+        lb.addEventListener('touchstart',e=>{startX=e.changedTouches[0].clientX;});
+        lb.addEventListener('touchend',e=>{const endX=e.changedTouches[0].clientX;if(startX-endX>30)showImage(currentIndex+1);if(endX-startX>30)showImage(currentIndex-1);});
+        const focusEls=[lbPrev,lbNext,lbClose];
+        lb.addEventListener('keydown',e=>{
+          if(e.key==='Escape')closeLb();
+          if(e.key==='ArrowRight')showImage(currentIndex+1);
+          if(e.key==='ArrowLeft')showImage(currentIndex-1);
+          if(e.key==='Tab'){e.preventDefault();const idx=focusEls.indexOf(document.activeElement);focusEls[(idx+1)%focusEls.length].focus();}
+        });
         root.querySelectorAll('.faq-question').forEach(btn=>{
           btn.addEventListener('click',()=>{
             const item=btn.parentElement;
