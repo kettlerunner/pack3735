@@ -91,7 +91,7 @@ img{max-width:100%;display:block}
 .hero-bg{
   position:absolute;
   inset:0;
-  background:url('/assets/background_hero.png') no-repeat;
+  background:url('/assets/popcorn_background.jpg') no-repeat;
   background-size:cover;
   background-position:left center;
   z-index:0;
