@@ -46,6 +46,22 @@ const wrongAnswers = [
   "Vigilant","Welcoming","Well-Mannered"
 ];
 
+const shareBtn = document.querySelector('.share-game');
+if (shareBtn){
+  shareBtn.addEventListener('click', e=>{
+    e.preventDefault();
+    const title = 'Scout Law Quiz';
+    const text = 'Test yourself on the Scout Law!';
+    try{
+      if (navigator.share){
+        navigator.share({title, text, url:location.href});
+      }else{
+        window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(text+' '+location.href)}`;
+      }
+    }catch(err){}
+  });
+}
+
 const startBtn = document.getElementById('startBtn');
 const quiz = document.getElementById('quiz');
 const questionEl = document.getElementById('question');

@@ -23,6 +23,7 @@
   const tipText  = $('#tipText');
   const againBtn = $('#againBtn');
   const shareBtn = $('#shareBtn');
+  const shareGameBtn = $('.share-game');
 
   const howDlg   = $('#how');
   const patchRow = $('#patchRow');
@@ -311,13 +312,13 @@ const DECOYS = [
   // Share
   async function shareScore(){
     const text = `I packed the Six Essentials in Pack & Go with a score of ${score}!`;
-    const url = location.origin || '';
+    const title = 'Pack 3735 — Pack & Go';
+    const url = location.href;
     try{
       if (navigator.share){
-        await navigator.share({ title:'Pack 3735 — Pack & Go', text, url });
+        await navigator.share({ title, text, url });
       }else{
-        await navigator.clipboard.writeText(`${text} ${url}`);
-        alert('Score copied to clipboard—paste to share!');
+        window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(text+' '+url)}`;
       }
     }catch{ /* user cancelled */ }
   }
@@ -341,6 +342,21 @@ const DECOYS = [
     e.preventDefault();
     shareScore();
   });
+
+  if (shareGameBtn){
+    shareGameBtn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const title = 'Pack & Go - Six Essentials';
+      const text = 'Try this Cub Scout packing game!';
+      try{
+        if (navigator.share){
+          navigator.share({title, text, url:location.href});
+        }else{
+          window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(text+' '+location.href)}`;
+        }
+      }catch(err){}
+    });
+  }
 
   soundBtn.addEventListener('click', () => setSound(!isSound()));
 

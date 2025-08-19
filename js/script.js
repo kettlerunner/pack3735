@@ -241,6 +241,11 @@ function initNav(){
   }
 
   async function initPopcorn(){
+    const holders = document.querySelectorAll('[data-cta-popcorn]');
+    for (const h of holders){
+      try{ const res = await fetch('/partials/cta_popcorn.html'); h.outerHTML = await res.text(); }
+      catch(err){}
+    }
     const t = document.querySelector('.pcn-thermo');
     const c = document.querySelector('.pcn-countdown');
     let data = {};
@@ -259,12 +264,16 @@ function initNav(){
       const labelEl = document.querySelector('[data-deadline-label]');
       if (labelEl) labelEl.textContent = dl.toLocaleDateString();
       const out = c.querySelector('.pcn-countdown__time');
+      const msg = 'Online ordering closed—ask a Scout.';
       const tick = ()=>{
-        const now = new Date(); let s = Math.max(0, Math.floor((dl-now)/1000));
+        const now = new Date();
+        let s = Math.floor((dl-now)/1000);
+        if (s <= 0){ c.textContent = msg; clearInterval(int); return; }
         const d = Math.floor(s/86400); s%=86400; const h=Math.floor(s/3600); s%=3600; const m=Math.floor(s/60); s%=60;
         out.textContent = `${d}d ${h}h ${m}m ${s}s`;
       };
-      tick(); setInterval(tick,1000);
+      tick();
+      const int = setInterval(tick,1000);
     }
       const confetti = (x,y)=>{
         const cv = document.getElementById('popcorn-confetti');

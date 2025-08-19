@@ -19,6 +19,7 @@ const recap = $('#recap');
 const againBtn = $('#againBtn');
 const dailyAgainBtn = $('#dailyAgainBtn');
 const shareBtn = $('#shareBtn');
+const shareGameBtn = $('.share-game');
 const hero = document.querySelector('.hero');
 const hud = document.querySelector('.hud');
 const stage = document.querySelector('.stage');
@@ -79,6 +80,7 @@ dailyBtn.addEventListener('click', () => startGame(new Date().toISOString().slic
 againBtn.addEventListener('click', () => { endDlg.close(); startGame(); });
 dailyAgainBtn.addEventListener('click', () => { endDlg.close(); startGame(new Date().toISOString().slice(0,10)); });
 shareBtn.addEventListener('click', share);
+if (shareGameBtn) shareGameBtn.addEventListener('click', e=>{e.preventDefault(); share();});
 leftBtn.addEventListener('click', () => submit(0));
 rightBtn.addEventListener('click', () => submit(1));
 document.addEventListener('keydown', keyHandler);
@@ -176,11 +178,11 @@ function endRound(){
 
 function share(){
   const msg = `I reached ${rank} with score ${score}!`;
-  const url = location.origin + '/games/leave-no-trace/';
+  const url = location.href;
   if(navigator.share){
     navigator.share({title:'Leave No Trace Ranger', text:msg, url}).catch(()=>{});
   } else {
-    navigator.clipboard.writeText(msg).then(()=>alert('Copied!'));
+    window.location.href = `mailto:?subject=Leave%20No%20Trace%20Ranger&body=${encodeURIComponent(msg+' '+url)}`;
   }
 }
 

@@ -29,7 +29,8 @@
     "name": "Cub Scouts Pack 3735",
     "url": "https://pack3735.com/",
     "areaServed": "Ripon, WI",
-    "logo": "/assets/cub-scout-crest.svg"
+    "logo": "/assets/cub-scout-crest.svg",
+    "sameAs": ["https://beascout.scouting.org/","https://facebook.com/pack3735"]
   }
   </script>
 </head>
@@ -58,7 +59,8 @@
           Pinewood Derby, STEM nights, and service projects.
         </p>
         <div class="actions">
-          <a href="/join/" class="btn btn-primary">Join Pack 3735</a>
+          <a href="/new-families.html" class="btn btn-ghost">Start Here</a>
+          <a href="/join.html" class="btn btn-primary">Join Pack 3735</a>
           <a href="/events/" class="btn btn-ghost">Upcoming Events</a>
         </div>
         <div class="crest"><img src="/assets/cub-scout-crest.svg" alt="" onerror="this.style.display='none'"/></div>
@@ -70,28 +72,40 @@
       <div class="container">
         <div class="card ra-teaser">
           <a href="img/road-america/road-america-group.jpg" class="ra-thumb">
-            <img src="img/road-america/road-america-group.jpg" alt="Pack 3735 group at Road America" loading="lazy" />
+            <img src="img/road-america/road-america-group.jpg" alt="Pack 3735 group at Road America" loading="lazy" width="1200" height="800" />
           </a>
           <div class="info">
             <h2>Road America Scout Weekend</h2>
-            <p class="muted small"><time datetime="2025-08-15">Aug 15–18, 2025</time></p>
+            <p class="muted small"><time datetime="2025-08-15">Aug 15–17, 2025</time></p>
             <p>Downtown racecar parade to Siebkens, meet-the-drivers moments, a supercar showcase, movie night under the stars, and GT racing all weekend; our most electric campout yet.</p>
-            <a class="btn btn-outline" href="road-america-campout-2025.html">See the weekend →</a>
+            <a class="btn btn-outline" href="road-america-campout-2025.html" aria-label="Road America Scout Weekend details">See the weekend →</a>
           </div>
         </div>
-        <p class="more"><a href="/join/">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
+        <p class="more"><a href="/join.html">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
+        <p class="footnote small muted">Dates subject to venue schedule.</p>
       </div>
     </section>
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"Event",
+      "name":"Road America Scout Weekend",
+      "startDate":"2025-08-15",
+      "endDate":"2025-08-17",
+      "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus":"https://schema.org/EventScheduled",
+      "location":{"@type":"Place","name":"Road America","address":"Elkhart Lake, WI"},
+      "description":"Racecar parade, meet-the-drivers, supercar showcase, movie night, and GT racing all weekend.",
+      "url":"https://pack3735.com/road-america-campout-2025.html"
+    }
+    </script>
 
     <!-- Popcorn Hero -->
     <section id="popcorn" class="popcorn-hero container">
       <div class="popcorn-hero__inner">
         <h2>Popcorn = Adventures for Pack 3735</h2>
         <p>Order popcorn online or from a Scout. Every bag funds campouts, Pinewood Derby kits, scholarships, and gear. Thank you! 🙌</p>
-        <div class="popcorn-cta">
-          <a class="btn-buy" href="https://www.prpopcornstore.com/?sid=28H0DK" target="_blank" rel="noopener">Order Online</a>
-          <a class="btn-donate" href="#" target="_blank" rel="noopener">Donate to the Pack</a>
-        </div>
+        <div data-cta-popcorn></div>
         <div class="popcorn-widgets">
           <div class="pcn-thermo" data-goal="6000" data-raised="2450" aria-label="Fundraising progress">
             <div class="pcn-thermo__fill"></div>
@@ -106,8 +120,12 @@
           <li>Order online 24/7 or from a Scout with a wagon.</li>
           <li>Local impact: stays with Pack 3735.</li>
         </ul>
+        <details class="faq"><summary>Why popcorn?</summary><p>Popcorn sales teach goal setting and fund our adventures.</p></details>
+        <details class="faq"><summary>Where do funds go?</summary><p>Campouts, Pinewood Derby kits, awards, and scholarships.</p></details>
+        <details class="faq"><summary>Online vs. wagon?</summary><p>Online orders ship direct; wagon sales deliver locally.</p></details>
+        <details class="faq"><summary>When is delivery?</summary><p>Online ships in about a week; wagon orders arrive in November.</p></details>
       </div>
-      <p class="more"><a href="/join/">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
+      <p class="more"><a href="/join.html">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
       <canvas id="popcorn-confetti" width="10" height="10" aria-hidden="true"></canvas>
     </section>
 
@@ -134,7 +152,7 @@
             <div><strong>Local Roots</strong><div class="muted">Serving Ripon, WI with strong school partnerships.</div></div>
           </div>
         </div>
-        <p class="more"><a href="/join/">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
+        <p class="more"><a href="/new-families.html">Start Here</a> · <a href="/faq.html">FAQ</a> · <a href="/join.html">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
       </div>
     </section>
 
@@ -142,15 +160,17 @@
     <section id="dens" class="alt">
       <div class="container">
         <h2>Dens (K–5)</h2>
-        <p class="kicker">Each den meets separately by grade. Update leaders and meeting cadence as needed.</p>
+        <p class="kicker">Each den meets separately by grade. Typically Tue 6:30–7:30 pm (check Calendar).</p>
         <div class="dens">
-          <div class="card den"><strong>Lions (K)</strong><div class="muted">Den Leader: TBD</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
-          <div class="card den"><strong>Tigers (1st)</strong><div class="muted">Den Leader: TBD</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
-          <div class="card den"><strong>Wolves (2nd)</strong><div class="muted">Den Leader: TBD</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
-          <div class="card den"><strong>Bears (3rd)</strong><div class="muted">Den Leader: TBD</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
-          <div class="card den"><strong>Webelos (4th)</strong><div class="muted">Den Leader: TBD</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
-          <div class="card den"><strong>AOL (5th)</strong><div class="muted">Den Leader: TBD</div><div class="muted">Meets: Tues, 6:30–7:30pm</div></div>
+          <div class="card den"><strong>Lions (K)</strong><div class="muted">Den Leader: Interim: Pack leadership (volunteers welcome)</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
+          <div class="card den"><strong>Tigers (1st)</strong><div class="muted">Den Leader: Interim: Pack leadership (volunteers welcome)</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
+          <div class="card den"><strong>Wolves (2nd)</strong><div class="muted">Den Leader: Interim: Pack leadership (volunteers welcome)</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
+          <div class="card den"><strong>Bears (3rd)</strong><div class="muted">Den Leader: Interim: Pack leadership (volunteers welcome)</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
+          <div class="card den"><strong>Webelos (4th)</strong><div class="muted">Den Leader: Interim: Pack leadership (volunteers welcome)</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
+          <div class="card den"><strong>AOL (5th)</strong><div class="muted">Den Leader: Interim: Pack leadership (volunteers welcome)</div><div class="muted">Meets: Tue, 6:30–7:30pm</div></div>
         </div>
+        <p><a class="btn btn-outline" href="mailto:pack3735@example.com?subject=%5BPack%203735%5D%20Den%20helper">Volunteer as Den Helper</a></p>
+        <ul class="muted small"><li>1 hr weekly meeting</li><li>Weekend outings as schedule allows</li></ul>
       </div>
     </section>
 
@@ -299,7 +319,7 @@
     <div class="cta-row">
       <a class="btn btn-outline" href="#" id="addPhotos">Submit Photos</a>
     </div>
-    <p class="more"><a href="/join/">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
+    <p class="more"><a href="/join.html">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
   </div>
 </section>
 
@@ -361,7 +381,7 @@
             </div>
             <div class="tile-cta">Play →</div>
             </a>
-            <p class="more"><a href="/join/">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
+            <p class="more"><a href="/join.html">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
         </div>
     </section>
 
@@ -389,10 +409,10 @@
         </div>
         <div class="cta-row">
           <a class="btn btn-outline" href="/events/">See Calendar</a>
-          <a class="btn btn-outline" href="/join/">How to Join</a>
+          <a class="btn btn-outline" href="/join.html">How to Join</a>
           <a class="btn btn-outline" href="#top">Ripon, WI</a>
         </div>
-        <p class="more"><a href="/join/">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
+        <p class="more"><a href="/join.html">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
       </div>
     </section>
   </main>
@@ -404,6 +424,13 @@
         This local unit site complements official Scouting America systems. Respect youth privacy: first names only, opt-in photos,
         no youth contact details. “Cub Scouts,” program marks, and emblems are trademarks of Scouting America; used here per local unit guidance.
       </div>
+      <nav class="foot-links">
+        <a href="/new-families.html">Start Here</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/events/">Calendar</a>
+        <a href="https://beascout.scouting.org/" target="_blank" rel="noopener">BeAScout</a>
+        <a href="/index.html#contact">Contact</a>
+      </nav>
     </div>
   </footer>
 
