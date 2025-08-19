@@ -25,6 +25,12 @@ img{max-width:100%;display:block}
 .btn-primary{background:var(--gold);color:var(--blue)}
 .btn-ghost{border-color:#ffffff;color:#ffffff}
 .btn-outline{border:1px solid var(--border)}
+.hero .btn-ghost,
+.hero .btn-outline{
+  background:#fff;
+  color:var(--blue);
+  border-color:#fff;
+}
 .muted{color:var(--ink-2)}
 .card{border:1px solid var(--border);border-radius:18px;background:#fff}
 .padded{padding:24px;border-radius:24px}
