@@ -9,7 +9,9 @@
   <style>
     body{background:var(--bg);}
     .timer-app{max-width:520px;margin:0 auto;padding:24px 16px 64px;display:flex;flex-direction:column;gap:24px}
-    .timer-display{display:flex;flex-direction:column;gap:16px;text-align:center}
+    .timer-display{display:flex;flex-direction:column;gap:16px;text-align:center;position:relative;overflow:hidden;isolation:isolate;--step-progress:0}
+    .timer-display::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(15,157,88,.18) 0%,rgba(251,188,4,.22) 50%,rgba(234,67,53,.28) 100%);transform-origin:left;transform:scaleX(var(--step-progress));transition:transform .4s ease,opacity .4s ease;border-radius:inherit;pointer-events:none;opacity:calc(.12 + (var(--step-progress) * .6))}
+    .timer-display > *{position:relative;z-index:1}
     .timer-display .phase{font-size:22px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--blue)}
     .timer-display .clock{font-size:clamp(56px, 20vw, 96px);line-height:1;font-weight:700;letter-spacing:2px}
     @media (min-width: 480px){.timer-display .clock{font-size:96px}}
@@ -34,6 +36,12 @@
     .step-list li{display:flex;justify-content:space-between;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fff}
     .step-list .active{color:var(--blue);font-weight:700}
     .notice{font-size:14px;color:var(--ink-2);text-align:center}
+    @keyframes slideInUp{0%{transform:translateY(16px);opacity:0}100%{transform:translateY(0);opacity:1}}
+    .timer-display .phase.is-animating,.timer-display .clock.is-animating{animation:slideInUp .45s cubic-bezier(.22,.61,.36,1) both}
+    @media (prefers-reduced-motion: reduce){
+      .timer-display::before{transition:none}
+      .timer-display .phase.is-animating,.timer-display .clock.is-animating{animation:none}
+    }
     @media (min-width: 960px){
       .timer-app{max-width:1040px;padding:32px 24px 80px;display:grid;grid-template-columns:minmax(320px,1fr) minmax(360px,1fr);gap:32px;align-items:flex-start}
       .timer-display,.timer-controls{height:100%}
@@ -129,7 +137,8 @@
       skip: document.getElementById('skip'),
       back: document.getElementById('back'),
       error: document.getElementById('error'),
-      stepList: document.getElementById('stepList')
+      stepList: document.getElementById('stepList'),
+      display: document.querySelector('.timer-display')
     };
 
     const STORAGE_KEY = 'pack3735_timer_v1';
@@ -145,6 +154,35 @@
       totalPlanMs: 0,
       reps: 0
     };
+
+    const prefersReducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+    function setStepProgress(value){
+      if (!els.display) return;
+      const clamped = Math.max(0, Math.min(1, value));
+      els.display.style.setProperty('--step-progress', String(clamped));
+    }
+
+    function animatePhase(){
+      ['phase', 'clock'].forEach(key => {
+        const target = els[key];
+        if (!target) return;
+        target.classList.remove('is-animating');
+        void target.offsetWidth;
+        if (!prefersReducedMotion){
+          target.classList.add('is-animating');
+        }
+      });
+    }
+
+    function scrollToTop(){
+      if (typeof window.scrollTo !== 'function') return;
+      try {
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      } catch(err){
+        window.scrollTo(0, 0);
+      }
+    }
 
     function fmt(ms){
       if (ms <= 0) return '00:00';
@@ -284,6 +322,8 @@
         els.clock.textContent = '00:00';
         els.progress.style.width = '100%';
         els.round.textContent = `${state.reps} / ${state.reps}`;
+        setStepProgress(1);
+        animatePhase();
         return;
       }
       const remaining = state.stepRemaining ?? step.duration;
@@ -291,6 +331,8 @@
       els.clock.textContent = fmt(remaining);
       els.progress.style.width = '0%';
       updateRoundLabel();
+      setStepProgress(0);
+      animatePhase();
     }
 
     function startStep(){
@@ -315,7 +357,9 @@
       els.phase.textContent = 'Done';
       els.clock.textContent = '00:00';
       els.progress.style.width = '100%';
+      setStepProgress(1);
       els.round.textContent = `${state.reps} / ${state.reps}`;
+      animatePhase();
       document.title = 'Interval Timer - Pack 3735';
       renderStepList();
       computeTotals();
@@ -338,6 +382,7 @@
       els.clock.textContent = fmt(remaining);
       const pct = 1 - (remaining / step.duration);
       els.progress.style.width = `${Math.min(100, Math.max(0, pct * 100)).toFixed(1)}%`;
+      setStepProgress(pct);
 
       // cues
       const secsLeft = Math.ceil(remaining / 1000);
@@ -351,6 +396,7 @@
       }
 
       if (remaining <= 0){
+        setStepProgress(1);
         state.scheduleIdx += 1;
         state.stepRemaining = null;
         if (state.scheduleIdx >= state.schedule.length){
@@ -444,6 +490,7 @@
       els.phase.textContent = 'Ready';
       els.clock.textContent = '00:00';
       els.progress.style.width = '0%';
+      setStepProgress(0);
       els.round.textContent = '0 / 0';
       els.elapsed.textContent = '00:00';
       els.remaining.textContent = '00:00';
@@ -473,6 +520,7 @@
         if (!state.schedule.length || state.scheduleIdx >= state.schedule.length){
           resetAll();
         }
+        scrollToTop();
         startTimer();
       } else {
         pauseTimer();
