@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interval Timer - Pack 3735</title>
   <meta name="description" content="Custom interval timer with large, easy-to-read controls for quick workouts." />
+  <meta name="robots" content="noindex, nofollow" />
   <link rel="stylesheet" href="/css/styles.css" />
   <style>
     body{background:var(--bg);}
@@ -33,14 +34,22 @@
     .timer-buttons button:disabled{opacity:.5;cursor:not-allowed}
     .error{color:#b91c1c;margin-top:8px;min-height:20px;font-weight:600}
     .step-list{margin:12px 0 0;padding:0;list-style:none;font-size:15px;color:var(--ink-2);display:grid;gap:6px}
-    .step-list li{display:flex;justify-content:space-between;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fff}
-    .step-list .active{color:var(--blue);font-weight:700}
+    .step-list li{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fff;position:relative;overflow:hidden;--step-progress:0;transition:border-color .3s ease,box-shadow .3s ease}
+    .step-list li::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(15,157,88,.18) 0%,rgba(251,188,4,.22) 50%,rgba(234,67,53,.28) 100%);transform-origin:left;transform:scaleX(var(--step-progress));transition:transform .4s ease,opacity .4s ease;border-radius:inherit;pointer-events:none;opacity:0}
+    .step-list li.is-active{border-color:var(--blue);box-shadow:0 0 0 1px rgba(0,63,135,.2)}
+    .step-list li.is-active::before,.step-list li.is-complete::before{opacity:.22}
+    .step-list li.is-complete{border-color:var(--pale)}
+    .step-list li > *{position:relative;z-index:1}
+    .step-list .step-label{font-weight:600}
+    .step-list .step-label.active{color:var(--blue)}
+    .step-list .step-time{font-variant-numeric:tabular-nums;font-weight:600}
     .notice{font-size:14px;color:var(--ink-2);text-align:center}
     @keyframes slideInUp{0%{transform:translateY(16px);opacity:0}100%{transform:translateY(0);opacity:1}}
     .timer-display .phase.is-animating,.timer-display .clock.is-animating{animation:slideInUp .45s cubic-bezier(.22,.61,.36,1) both}
     @media (prefers-reduced-motion: reduce){
       .timer-display::before{transition:none}
       .timer-display .phase.is-animating,.timer-display .clock.is-animating{animation:none}
+      .step-list li::before{transition:none}
     }
     @media (min-width: 960px){
       .timer-app{max-width:1040px;padding:32px 24px 80px;display:grid;grid-template-columns:minmax(320px,1fr) minmax(360px,1fr);gap:32px;align-items:flex-start}
@@ -276,13 +285,75 @@
       els.stepList.innerHTML = '';
       state.schedule.forEach((step, idx) => {
         const li = document.createElement('li');
-        const active = idx === state.scheduleIdx;
-        if (active){
-          li.setAttribute('aria-current', 'step');
-        }
-        li.innerHTML = `<span class="${active ? 'active' : ''}">${step.label}</span><span>${fmt(step.duration)}</span>`;
+        li.dataset.index = String(idx);
+        const label = document.createElement('span');
+        label.className = 'step-label';
+        label.textContent = step.label;
+        const time = document.createElement('span');
+        time.className = 'step-time';
+        time.dataset.duration = String(step.duration);
+        time.textContent = fmt(step.duration);
+        li.append(label, time);
         els.stepList.appendChild(li);
       });
+      syncStepListState();
+    }
+
+    function syncStepListState(){
+      if (!els.stepList.children.length) return;
+      Array.from(els.stepList.children).forEach((li) => {
+        const idx = Number(li.dataset.index);
+        const step = state.schedule[idx];
+        const label = li.querySelector('.step-label');
+        const time = li.querySelector('.step-time');
+        const isCurrent = idx === state.scheduleIdx && idx < state.schedule.length;
+        const isComplete = idx < state.scheduleIdx || (!step && idx < state.schedule.length);
+        if (isCurrent){
+          li.setAttribute('aria-current', 'step');
+        } else {
+          li.removeAttribute('aria-current');
+        }
+        li.classList.toggle('is-active', isCurrent);
+        li.classList.toggle('is-complete', isComplete);
+        if (label){
+          label.classList.toggle('active', isCurrent);
+        }
+        if (time && step){
+          time.dataset.duration = String(step.duration);
+          if (isComplete){
+            time.textContent = 'Done';
+          } else if (isCurrent){
+            const remaining = state.stepRemaining == null ? step.duration : state.stepRemaining;
+            time.textContent = fmt(remaining);
+          } else {
+            time.textContent = fmt(step.duration);
+          }
+        } else if (time && isComplete){
+          time.textContent = 'Done';
+        }
+        let progressValue = 0;
+        if (isComplete){
+          progressValue = 1;
+        } else if (isCurrent && step){
+          const remaining = state.stepRemaining == null ? step.duration : state.stepRemaining;
+          progressValue = 1 - (remaining / step.duration);
+        }
+        li.style.setProperty('--step-progress', String(Math.max(0, Math.min(1, progressValue))));
+      });
+    }
+
+    function updateActiveStepDisplay(remainingMs, pct){
+      const activeItem = els.stepList.querySelector('li.is-active');
+      if (!activeItem) return;
+      activeItem.style.setProperty('--step-progress', String(Math.max(0, Math.min(1, pct))));
+      const time = activeItem.querySelector('.step-time');
+      if (time){
+        if (remainingMs <= 0){
+          time.textContent = 'Done';
+        } else {
+          time.textContent = fmt(remainingMs);
+        }
+      }
     }
 
     function updateRoundLabel(){
@@ -323,6 +394,7 @@
         els.progress.style.width = '100%';
         els.round.textContent = `${state.reps} / ${state.reps}`;
         setStepProgress(1);
+        syncStepListState();
         animatePhase();
         return;
       }
@@ -332,6 +404,7 @@
       els.progress.style.width = '0%';
       updateRoundLabel();
       setStepProgress(0);
+      syncStepListState();
       animatePhase();
     }
 
@@ -345,6 +418,8 @@
       state.startTs = performance.now();
       state.endTs = state.startTs + state.stepRemaining;
       updatePhase(step);
+      const pct = 1 - ((state.stepRemaining ?? step.duration) / step.duration);
+      updateActiveStepDisplay(state.stepRemaining ?? step.duration, pct);
     }
 
     function finishAll(){
@@ -383,6 +458,7 @@
       const pct = 1 - (remaining / step.duration);
       els.progress.style.width = `${Math.min(100, Math.max(0, pct * 100)).toFixed(1)}%`;
       setStepProgress(pct);
+      updateActiveStepDisplay(remaining, pct);
 
       // cues
       const secsLeft = Math.ceil(remaining / 1000);
@@ -397,6 +473,7 @@
 
       if (remaining <= 0){
         setStepProgress(1);
+        updateActiveStepDisplay(0, 1);
         state.scheduleIdx += 1;
         state.stepRemaining = null;
         if (state.scheduleIdx >= state.schedule.length){
@@ -453,6 +530,11 @@
         const remaining = Math.max(0, state.endTs - performance.now());
         state.stepRemaining = remaining;
         els.clock.textContent = fmt(remaining);
+        const current = state.schedule[state.scheduleIdx];
+        if (current){
+          const pct = current.duration ? 1 - (remaining / current.duration) : 1;
+          updateActiveStepDisplay(remaining, pct);
+        }
       }
       els.startStop.textContent = 'Resume';
       document.title = 'Interval Timer - Pack 3735';
@@ -473,6 +555,9 @@
       computeTotals();
       if (!state.playing){
         els.clock.textContent = current ? fmt(current.duration) : '00:00';
+        if (current){
+          updateActiveStepDisplay(current.duration, 0);
+        }
       }
     }
 
