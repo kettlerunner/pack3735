@@ -1,3 +1,4 @@
 User-agent: *
+Disallow: /timer.html
 Allow: /
 Sitemap: https://pack3735.com/sitemap.xml

@@ -30,6 +30,7 @@ Static site for Cub Scout Pack 3735; purpose is recruitment, events, and parent 
 - Accessibility: alt text, headings in order, focusable controls, color contrast ≥ 4.5:1.
 - SEO basics: one `<h1>` per page; meta title ≤ 60 chars; meta description 140–160 chars.
 - Links to external services open same tab unless it’s a long form / payment (then new tab).
+- `timer.html` is a personal utility page; keep it out of navigation, exclude it from sitemaps/search, and mark it `noindex` so engines don’t crawl it.
 
 ## 6) Common Task Recipes
 ### A) Popcorn Sales Landing Page
