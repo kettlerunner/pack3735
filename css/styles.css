@@ -8,7 +8,6 @@
   --ink-2:#4b5563;
   --border:#e5e7eb;
   --content-max:1120px; /* unify container width */
-  --popcorn-bar-height:0px; /* space for sticky announcement */
 }
 
 /* Base */
@@ -53,7 +52,7 @@ img{max-width:100%;display:block}
 }
 
 /* Header */
-.site-header{position:sticky;top:var(--popcorn-bar-height,0);z-index:40;background:rgba(255,255,255,.95);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
+.site-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 10px}
 .logo{display:flex;gap:12px;align-items:center}
 .logo img{width:40px;height:40px;object-fit:contain;border-radius:8px}
@@ -278,38 +277,6 @@ footer{border-top:1px solid var(--border)}
 .game-tile:hover{box-shadow:0 4px 14px rgba(0,0,0,.06)}
 .tile-badge{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--gold);color:var(--blue);display:inline-block}
 .tile-cta{font-weight:700}
-
-/* Popcorn announcement bar */
-.popcorn-bar{position:sticky;top:0;z-index:9999;display:flex;gap:.75rem;align-items:center;justify-content:center;padding:.6rem .9rem;background:#FCD116;color:#003F87;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.popcorn-bar__btn{background:#003F87;color:#fff;padding:.45rem .8rem;border-radius:.6rem;text-decoration:none;white-space:nowrap}
-.popcorn-bar__btn:hover{text-decoration:none;filter:brightness(1.05)}
-.popcorn-bar__close{all:unset;margin-left:.5rem;cursor:pointer;font-size:1.2rem;line-height:1}
-@media (max-width:720px){.popcorn-bar{flex-wrap:wrap}}
-
-/* Popcorn hero section */
-.popcorn-hero{margin:2.5rem auto 2rem;position:relative;overflow:hidden}
-.popcorn-hero__inner{background:#fff;border:1px solid #e5e7eb;border-radius:1rem;padding:1.25rem 1.25rem 1.5rem;box-shadow:0 6px 24px rgba(0,0,0,.05)}
-.popcorn-cta{display:flex;flex-wrap:wrap;gap:.6rem;margin:.75rem 0 1rem}
-.popcorn-cta a{display:inline-block;padding:.6rem .9rem;border-radius:.8rem;text-decoration:none;font-weight:700}
-.btn-buy{background:#003F87;color:#fff}
-.btn-donate{background:#0b0b0b;color:#fff}
-.btn-vol{background:#FCD116;color:#003F87}
-.popcorn-widgets{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
-@media (max-width:720px){.popcorn-widgets{grid-template-columns:1fr}}
-.pcn-thermo{position:relative;height:18px;border-radius:999px;background:#f3f4f6;overflow:hidden;border:1px solid #e5e7eb}
-.pcn-thermo__fill{height:100%;width:0;background:linear-gradient(90deg,#FCD116,#ffd54d)}
-.pcn-thermo__label{margin-top:.35rem;font-size:.95rem;color:#4b5563}
-.pcn-countdown{display:grid;place-items:center;border:1px dashed #e5e7eb;border-radius:.8rem;padding:.7rem}
-.pcn-countdown__time{font-feature-settings:"tnum" 1;font-variant-numeric:tabular-nums;font-weight:800;font-size:1.2rem}
-.popcorn-points{display:grid;gap:.35rem;margin:1rem 0 0;padding-left:1rem}
-#faq a,.popcorn-points a{color:var(--blue);font-weight:700;text-decoration:underline}
-#popcorn-confetti{position:absolute;inset:0;pointer-events:none}
-
-/* Subtle popcorn kernels drifting */
-.popcorn-hero::before,.popcorn-hero::after{content:'\1F37F';position:absolute;opacity:.15;font-size:2.5rem;animation:pcn-drift 12s linear infinite}
-.popcorn-hero::before{top:-20px;left:10%}
-.popcorn-hero::after{top:-20px;right:15%;animation-duration:15s}
-@keyframes pcn-drift{0%{transform:translateY(0) rotate(0deg)}100%{transform:translateY(120px) rotate(360deg)}}
 
 /* Road America teaser */
 #road-america .ra-teaser{display:grid;gap:1rem;padding:1rem;}
