@@ -13,11 +13,15 @@ function initNav(){
   const closeNavBtn = $('#closeNavBtn');
   const sheetLinks = $$('.sheet a');
   let lastFocused = null;
+  let scrollY = 0;
   if (!drawer || !openNav || !closeNav || !closeNavBtn) return;
 
   function openDrawer(){
     drawer.classList.add('open');
     openNav.setAttribute('aria-expanded', 'true');
+    scrollY = window.scrollY;
+    document.body.dataset.navScroll = String(scrollY);
+    document.body.style.top = `-${scrollY}px`;
     document.body.classList.add('nav-open');
     lastFocused = document.activeElement;
     const first = $('.sheet a, .sheet button');
@@ -29,6 +33,10 @@ function initNav(){
     drawer.classList.remove('open');
     openNav.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('nav-open');
+    const stored = parseInt(document.body.dataset.navScroll || '0', 10);
+    document.body.style.top = '';
+    delete document.body.dataset.navScroll;
+    window.scrollTo(0, isNaN(stored) ? 0 : stored);
     document.removeEventListener('keydown', trapFocus);
     document.removeEventListener('keydown', escToClose);
     if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
