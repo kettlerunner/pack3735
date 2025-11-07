@@ -1,3 +1,69 @@
+# Popcorn Campaign Archive (2024)
+
+This file stores the retired popcorn fundraising content so we can restore it quickly next season.
+
+**Restore checklist**
+
+- Re-add the announcement bar to pages where you want the seasonal alert.
+- Drop the homepage section back into `index.html` and update the CTA URLs/deadlines.
+- Recreate the nav link in `partials/header.html` and reinstate any supporting CSS/JS snippets.
+- Restore the dedicated landing page and JSON data if needed for widgets.
+
+## Announcement Bar Snippet
+
+```html
+<div class="popcorn-bar" role="status" aria-live="polite">
+  <span>🍿 Popcorn Season is on! <strong>Order online by <span data-deadline-label>Oct 12</span></strong></span>
+  <a href="https://www.prpopcornstore.com/?sid=28H0DK" class="popcorn-bar__btn" target="_blank" rel="noopener">Order Online</a>
+  <button class="popcorn-bar__close" aria-label="Dismiss">×</button>
+</div>
+```
+
+## Homepage Popcorn Section
+
+```html
+<section id="popcorn" class="popcorn-hero container">
+  <div class="popcorn-hero__inner">
+    <h2>Popcorn = Adventures for Pack 3735</h2>
+    <p>Order popcorn online or from a Scout. Every bag funds campouts, Pinewood Derby kits, scholarships, and gear. Thank you! 🙌</p>
+    <div data-cta-popcorn></div>
+    <div class="popcorn-widgets">
+      <div class="pcn-thermo" data-goal="6000" data-raised="2450" aria-label="Fundraising progress">
+        <div class="pcn-thermo__fill"></div>
+        <div class="pcn-thermo__label" aria-live="polite"></div>
+      </div>
+      <div class="pcn-countdown" data-deadline="2025-10-12T23:59:59-05:00" aria-label="Countdown to order deadline">
+        <div class="pcn-countdown__time">--d --h --m --s</div>
+        <small>until order deadline</small>
+      </div>
+    </div>
+    <details class="faq"><summary>Why popcorn?</summary><p>Popcorn sales teach goal setting and fund our adventures.</p></details>
+    <details class="faq"><summary>Where do funds go?</summary><p>Campouts, Pinewood Derby kits, awards, and scholarships.</p></details>
+    <details class="faq"><summary>Online vs. wagon?</summary><p>Online orders ship direct; wagon sales deliver locally.</p></details>
+    <details class="faq"><summary>When is delivery?</summary><p>Online ships in about a week; wagon orders arrive in November.</p></details>
+  </div>
+  <p class="more"><a href="/join.html">Join Pack 3735</a> · <a href="/events/">See the Calendar</a></p>
+  <canvas id="popcorn-confetti" width="10" height="10" aria-hidden="true"></canvas>
+</section>
+```
+
+## CTA Partial
+
+```html
+<div class="popcorn-cta">
+  <a class="btn-buy" href="https://www.prpopcornstore.com/?sid=28H0DK" target="_blank" rel="noopener">Order Online</a>
+</div>
+```
+
+## Campaign Data (JSON)
+
+```json
+{ "goal": 6000, "raised": 2450, "deadline": "2025-10-12T23:59:59-05:00" }
+```
+
+## Popcorn Landing Page (2024)
+
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -155,4 +221,4 @@
   <script src="../js/script.js" defer></script>
 </body>
 </html>
-
+```

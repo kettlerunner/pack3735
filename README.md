@@ -9,7 +9,7 @@ This repo holds the source for the Cub Scout Pack 3735 site at https://pack3735.
 - `events/` – pack calendar and outings
 - `join/` – how to sign up
 - `games/` – small learning games
-- `popcorn/` – seasonal popcorn fundraiser pages
+- `reference/` – archived seasonal campaigns (popcorn 2024)
 - `partials/` – shared header, footer, and other snippets
 - `css/` and `js/` – styles and scripts
 - `assets/` – images and other files
